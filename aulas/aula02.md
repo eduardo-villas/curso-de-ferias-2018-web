@@ -322,7 +322,7 @@ Adicionando Layout
 </mat-sidenav-container>
 ```
 
-##### Importar FlexLayoutModule, MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule
+##### No arquivo src/app/main/main.module.ts
 ``` typescript
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule } from '@angular/material';
@@ -359,13 +359,7 @@ export class MainModule { }
 
 ##### No arquivo src/app/main/main.component.scss
 ``` css
-.navSpan {
-    width: 100%;
-}
-button.user {
-    float:right;
-}
-.mat-drawer-container{
+mat-sidenav-container{
     position: fixed;
     margin: 0px;
     height: 100%;
