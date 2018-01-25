@@ -7,3 +7,5 @@
 ### [Aula 01](aulas/aula01.md)
 
 ### [Aula 02](aulas/aula02.md)
+
+### [Aula 03](aulas/aula03.md)
