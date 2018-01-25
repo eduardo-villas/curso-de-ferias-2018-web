@@ -245,7 +245,7 @@ import { AppRoutingModule } from './app.routing';
 export class AppModule { }
 ```
 
-##### No arquivo src/app/main/main.routing.ts
+##### No arquivo src/app/main/main.module.ts
 ``` typescript
 import { MainRouting } from './main.routing';
 import { RouterModule } from "@angular/router";
@@ -253,19 +253,21 @@ import { RouterModule } from "@angular/router";
 
 ``` typescript
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MainComponent } from './main.component';
+
+import { MainRouting } from './main.routing';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      { path: 'main', 
-        component: MainComponent
-      }
-    ])
-  ]
+    CommonModule,
+    MainRouting,
+    RouterModule
+  ],
+  declarations: [MainComponent]
 })
-export class MainRouting { }
+export class MainModule { }
 ```
 
 ##### No arquivo src/app/app.component.html
