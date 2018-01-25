@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 import { ConsultaComponent } from './usuario/consulta/consulta.component';
+import { FormularioComponent } from './usuario/formulario/formulario.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,10 @@ import { ConsultaComponent } from './usuario/consulta/consulta.component';
           {
             path: 'usuario/consulta',
             component: ConsultaComponent
+          },
+          {
+            path: 'usuario/adicionar',
+            component: FormularioComponent
           }
         ]
       }

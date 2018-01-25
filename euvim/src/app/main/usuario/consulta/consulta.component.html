@@ -1,3 +1,36 @@
-<p>
-  consulta works!
-</p>
+<div class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="login">
+        <mat-header-cell *matHeaderCellDef> Login </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.login}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="perfil">
+      <mat-header-cell *matHeaderCellDef> Perfil </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.perfil}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10" class="buttons">
+          <button mat-icon-button color="primary"  mdTooltip="Editar">
+            <mat-icon class="mat-24" aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="danger" mdTooltip="Excluir">
+              <mat-icon class="mat-24" aria-label="Excluir">delete</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <button mat-fab color="primary" routerLink="/main/usuario/adicionar">
+    <mat-icon class="mat-24" aria-label="Adicionar">add</mat-icon>
+  </button> 
+</div>
