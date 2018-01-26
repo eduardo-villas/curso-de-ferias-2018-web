@@ -10,6 +10,10 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 import { ConsultaComponent } from './usuario/consulta/consulta.component';
 import { FormularioComponent } from './usuario/formulario/formulario.component';
 
+import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+
+import { UsuarioService } from './usuario/usuario.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +29,13 @@ import { FormularioComponent } from './usuario/formulario/formulario.component';
     MatTableModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  providers: [
+    FormBuilder,
+    UsuarioService
   ],
   declarations: [MainComponent, ConsultaComponent, FormularioComponent]
 })
