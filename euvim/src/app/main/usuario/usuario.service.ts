@@ -1,47 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UsuarioService {
+s
+  private _urlUsuario = environment.url+"/api/v1/usuarios";
 
-  private usuarios = [
-    {id: 1, nome: 'José da Silva', login: "jose", email: 'jose@ponto.com.br', perfil:"ALUNO"},
-    {id: 2, nome: 'Mariano das Neves', login: "mariano", email: 'marino@ponto.com.br', perfil:"ALUNO"},
-    {id: 3, nome: 'Magyver da Silva', login: "magyver", email: 'magyver@ponto.com.br', perfil:"ALUNO"},
-    {id: 4, nome: 'Irineu Nunes', login: "irineu", email: 'irineu@ponto.com.br', perfil:"ALUNO"},
-    {id: 5, nome: 'Carlos Silva', login: "carlos1", email: 'carlos@ponto.com.br', perfil:"ALUNO"}
-  ];
-
-  constructor() { }
+  constructor(private _httpClient: HttpClient) { }
   
   adicionar(usuario){
-    let maxIdentifier = 0;
-    this.usuarios.forEach(usuario=>{
-      maxIdentifier < usuario.id ? maxIdentifier = usuario.id : maxIdentifier = maxIdentifier;
-    });
-    usuario.identifier = maxIdentifier + 1;
-    this.usuarios.push(usuario);
+    return this._httpClient.post(this._urlUsuario, usuario, {responseType: 'text'});
   }
 
   excluir(id){
-    let index = this.usuarios.findIndex(item=> item.id == id);
-    if(index > -1){
-      this.usuarios.splice(index, 1);
-    }
+    return this._httpClient.delete(this._urlUsuario+"/"+id, {responseType: 'text'});
   }
 
   editar(usuario){
-    let index = this.usuarios.findIndex(item=> item.id == usuario.id);
-    if(index > -1){
-      this.usuarios[index] = usuario;
-    }
+    return this._httpClient.put(this._urlUsuario+"/"+usuario.id, usuario, {responseType: 'text'});
   }
 
   listar(){
-    return this.usuarios;
+    return this._httpClient.get<Array<any>>(this._urlUsuario);
   }
 
   carregar(id){
-    return this.usuarios.find(item=> item.id == id);
+    return this._httpClient.get<any>(this._urlUsuario+"/"+id);
   }
 
 }

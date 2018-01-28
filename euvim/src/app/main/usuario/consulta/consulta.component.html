@@ -19,10 +19,10 @@
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
       <mat-cell *matCellDef="let element" fxFlex="10" class="buttons">
-          <button mat-icon-button color="primary"  mdTooltip="Editar">
+          <button mat-icon-button color="primary" (click)="editar(element.id)"mdTooltip="Editar">
             <mat-icon class="mat-24" aria-label="Editar">edit</mat-icon>
           </button>
-          <button mat-icon-button color="danger" mdTooltip="Excluir">
+          <button mat-icon-button color="danger" (click)="excluir(element.id)" mdTooltip="Excluir">
               <mat-icon class="mat-24" aria-label="Excluir">delete</mat-icon>
           </button>
       </mat-cell>
@@ -30,6 +30,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <div *ngIf="noResults$" class="noResult">Nenhum resultado</div>
   <button mat-fab color="primary" routerLink="/main/usuario/adicionar">
     <mat-icon class="mat-24" aria-label="Adicionar">add</mat-icon>
   </button> 

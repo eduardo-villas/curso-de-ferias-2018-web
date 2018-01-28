@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { UsuarioService } from '../usuario.service';
 import { MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
@@ -14,14 +15,36 @@ import { MatTableDataSource } from '@angular/material';
 export class ConsultaComponent implements OnInit {
 
   public displayedColumns = ['nome', 'login', 'email', 'perfil', 'id'];
-  public dataSource = null;
+  public dataSource: MatTableDataSource<any>;
 
-  constructor(private _usuarioService: UsuarioService) { 
-    let listaUsuarios = _usuarioService.listar();
-    this.dataSource = new MatTableDataSource<any>(listaUsuarios);
+  public perfis = {
+     "PROFESSOR": 'Professor',
+     "ADMINISTRADOR": 'Administrador',
+     "ALUNO": 'Aluno'
+  };
+
+  public noResults$ = false;
+  constructor(private _usuarioService: UsuarioService, private _router: Router) { }
+  
+  ngOnInit() {
+    this.atualizarListaDeUsuarios();
+  }
+ 
+  excluir(id){
+    this._usuarioService.excluir(id).subscribe(suc=>{
+      this.atualizarListaDeUsuarios();
+  });
   }
 
-  ngOnInit() {
+  editar(id){
+    this._router.navigate(["/main/usuario/editar", id]);
+  }
+
+  private atualizarListaDeUsuarios(){
+    this._usuarioService.listar().subscribe(suc => {
+      this.noResults$ = suc.length == 0;
+      this.dataSource = new MatTableDataSource(suc);
+    });
   }
 
 }

@@ -13,6 +13,7 @@ import { FormularioComponent } from './usuario/formulario/formulario.component';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 
 import { UsuarioService } from './usuario/usuario.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -31,11 +32,13 @@ import { UsuarioService } from './usuario/usuario.service';
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     FormBuilder,
-    UsuarioService
+    UsuarioService,
+    HttpClient
   ],
   declarations: [MainComponent, ConsultaComponent, FormularioComponent]
 })

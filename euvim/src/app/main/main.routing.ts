@@ -17,6 +17,10 @@ import { FormularioComponent } from './usuario/formulario/formulario.component';
           {
             path: 'usuario/adicionar',
             component: FormularioComponent
+          },
+          {
+            path: 'usuario/editar/:id',
+            component: FormularioComponent
           }
         ]
       }
