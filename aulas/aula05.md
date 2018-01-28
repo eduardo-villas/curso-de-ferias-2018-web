@@ -425,6 +425,14 @@ export class FormularioComponent implements OnInit {
 Consumindo APIs REST
 --------------------
 
+##### No arquivo src/app/environments/environment.ts
+``` typescript 
+export const environment = {
+  production: false,
+  url: 'http://curso-ferias-2018.herokuapp.com'
+};
+```
+
 ##### No arquivo src/app/main/main.module.ts
 ``` typescript
 import { HttpClientModule } from '@angular/common/http';
