@@ -1,0 +1,27 @@
+{
+  "name": "Curso Férias - 2018",
+  "version": "3.6.0",
+  "main": [
+    "js/reveal.js",
+    "css/reveal.css"
+  ],
+  "homepage": "http://revealjs.com",
+  "license": "MIT",
+  "description": "Talk angular",
+  "authors": [
+    "Arthur Fritz Santiago <arthurfritzz@gmail.com>"
+  ],
+  "dependencies": {
+    "headjs": "~1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hakimel/reveal.js.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
