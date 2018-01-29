@@ -1,0 +1,659 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 01)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 01</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="arthur">
+					<img src="./img/8581111.jpeg"  id="arthurFoto"/>
+					<b>Arthur Fritz Santiago</b>
+					<p class="font-min" align="justify">
+						Formado em Análise e Desenvolvimento de Sistema<br>
+						Especialista em Desenvolvimento para Dispositivos Móveis<br>
+						Especialista em Desenvolvimento WebMobile<br>
+						Especialista em Gerência de Projetos em TI<br>
+						Analista de sistemas na MATERA Systems<br>
+						Desenvolvedor desde 2009<br>
+						Blogueiro<br>
+						Apaixonado pelo que faz<br>
+						Hobbies criar engenhocas (IoT), e-sports e lazer.<br>
+					</p>
+				</section>
+				<section id="altieres">
+					<img src="./img/595249.jpeg"  id="altieresFoto"/>
+					<b>Altieres de Matos</b>
+					<p class="font-min" align="justify">
+						Bacharel em Sistemas de Informação (UNIPAR)<br>
+						Especialista em Desenvolvimento para Dispositivos Móveis (FCV)<br>
+						Especialista em Gerência de Projetos em TI (FCV)<br>
+						Mestrando em Computação Aplicada (UTFPR)<br>
+						Oracle Certified Java Programmer<br>
+						Oracle Certified Web Component Developer<br>
+						Certified Scrum Master<br>
+						Certified Scrum Developer<br>
+						Certified Scrum Professional<br>
+						Arquiteto de Software na MATERA Systems<br>
+						Desenvolvedor desde 2008<br>
+						Professor desde 2011<br>
+						Agilista desde 2012<br>
+						Entusiasta Java e Agile<br>
+						Apaixonado pela profissão<br>
+						Blogueiro, zueiro e parceiro
+					</p>
+				</section>
+
+				<section id="slide1">
+					<h5>O que é um Framework (JavaScript)?</h5>
+					<p  class="fragment" align="justify">
+						Um framework para aplicações web é um framework de software designado para suportar o desenvolvimento de sites web dinâmicos, aplicações Web e serviços Web. O framework destina-se a aliviar a sobrecarga associada a atividades comuns realizadas em desenvolvimento Web. 
+					</p>
+					<p  class="fragment" align="justify">
+						Por exemplo, muitos frameworks fornecem bibliotecas para acesso à banco de dados, frameworks de modelagem e gerenciamento de sessão, e geralmente promovem a reutilização de código.
+					</p>
+				</section>
+
+
+				<section id="slide2">
+					<h5>O que é SPA e como se comporta?</h5>
+					<p  class="fragment" align="justify">
+						Como conceito mais básico e simplista do Single Page Application (SPA), podemos dizer que trata-se de uma aplicação que não faz refresh no navegador ao mudar de página. 
+					</p>
+					<p  class="fragment" align="justify">
+						O SPA é uma tecnologia denominada de Client-Side, ou seja, todos os processos estão sendo executados no lado do cliente, ou seja no navegador do usuário. (Com exceção de alguns processos realizados com outras tecnologias, como o React, que permite renderizar no lado servidor)
+					</p>
+				</section>
+
+				<section id="slide3">
+					<h5>Comunicação SPA</h5>
+					<p  class="fragment" align="justify">
+						A comunicação com o back-end se dá através de chamadas Ajax para os end-points específicos de uma API, e é exatamente nesse momento que as aplicações SPA mostram todo o seu brilho, pois uma aplicação SPA bem feita é agnóstica ao back-end, não sabendo e não se importando se a aplicação foi feita em Node, PHP, Java, Ruby, Python, Go, Elixir, ou qualquer outra linguagem.
+					</p>
+				</section>
+
+				<section id="slide4">
+					<h5>Router SPA</h5>
+					<p  class="fragment" align="justify">
+						O router é uma peça importantíssima no modelo de desenvolvimento de SPAs. É ele que define/constrói a tela para o usuário, permitindo que, mesmo após um refresh, a página volte ao seu estado anterior ou a um estado próximo disso É muito comum salvar informações localmente no navegador do usuário (O desenvolvimento mobile híbrido segue uma lógica parecida). Em geral é armazenado um token ou qualquer informação que possa identificar o usuário e sua máquina, fazendo do localStorage.
+					</p>
+				</section>
+
+				<section id="slide5">
+					<h5>O que é o Angular (e TypeScript)?</h5>
+					<p  class="fragment font-min" align="justify">
+						O TypeScript possibilita que você escreva código JavaScript na forma que foi acostumado quando aprendeu Orientação a Objetos. Assim é possível criar métodos que retornem um valor com tipo definido.
+					</p>
+					<p  class="fragment font-min" align="justify">
+						No final, TypeScript pega o seu código cheio de classes e transforma em JavaScript puro, no qual o browser vai compreender. No próprio site é definido que o TypeScript compila para JavaScript, o que é um termo <b>tecnicamente errado</b>, mas cada vez mais aceito, dado que aquele código “malucão” em JavaScript pode ser encarado como código de máquina.
+					</p>
+				</section>
+
+				<section id="slide6">
+					<h5>O que é API?</h5>
+					<p  class="fragment" align="justify">
+						API é um conjunto de rotinas e padrões de programação para acesso a um aplicativo de software ou plataforma baseado na Web. A sigla API refere-se ao termo em inglês "Application Programming Interface" que significa em tradução para o português "Interface de Programação de Aplicativos".
+					</p>
+					<p class="fragment" align="justify">
+						Através das APIs, os aplicativos podem se comunicar uns com os outros sem conhecimento ou intervenção dos usuários. 
+					</p>
+				</section>
+
+				<section id="slide7">
+					<h5>O que é REST?</h5>
+					<p class="fragment font-min" align="justify">O termo REST foi definido por Roy T. Fielding em sua tese de PhD. Roy foi um dos principais desenvolvedores de muitos
+							dos protocolos Web essenciais, incluindo HTTP e URIs, e ele formalizou várias das idéias por trás deles nesse documento.
+							Nesta dissertação, Roy primeiro define uma metodologia de falar sobre estilos arquiteturais — alto nível, padrões
+							de abstração que expressam as principais ídeias por trás de uma abordagem arquitetural. Cada estilo arquitetural
+							com um conjunto de regras que o define. Exemplos de estilos arquiteturais incluem “o estilo nulo” (que não possue
+							regras), pipe e filter, cliente/servidor, objetos distrubuídos e REST.</p>
+					<p class="fragment font-min" align="justify">Uma roupagem do estilo REST é o HTTP, ou de forma um pouco mais abstrata: a arquitetura da Web em si. Pensando dessa
+							forma, o HTTP "instancia" a interface uniforme do REST com uma interface especial, consistindo nos verbos HTTP.</p>
+				</section>
+
+				<section id="slide8">
+					<h5>Os cinco princípios fundamentais do REST</h5>
+					<ol>
+						<li class="fragment">
+							Dê a todas as coisas um Identificador
+						</li>
+						<li class="fragment">
+							Vincule as coisas
+						</li>
+						<li class="fragment">
+							Utilize métodos padronizados
+						</li>
+						<li class="fragment">
+							Recursos com múltiplas representações
+						</li>
+						<li class="fragment">
+							Comunique sem estado
+						</li>
+					</ol>
+				</section>
+
+				<section id="slide9">
+					<h5>O que é Mock?</h5>
+					<p class="fragment" align="justify">
+						Durante o desenvolvimento frequentemente é necessário consumir uma API REST, porém, diversas vezes as APIs ainda não estão desenvolvidas. Consequentemente, para que o desenvolvimento frontend não pare, precisamos ter APIs "falsas" que simulam o comportamento das APIs. Essas APIs falsas são conhecidas como Mocks.
+					</p>
+				</section>
+
+				<section id="angular">
+					<h3>Angular vamos iniciar?</h3>
+				</section>
+
+				<section id="component1">
+					<h5>Componentes</h5>
+					<p class="fragment" align="justify">
+						Agora voltando para as aplicações Angular, elas são feitas a partir de um conjunto de web components. Um web componente é a combinação de estilo CSS + template HTML + classe javascript que irá dizer ao Angular como controlar uma parte da aplicação.
+					</p>
+					<p class="fragment" align="justify">
+						Além de componentes, no Angular possuímos uma série de bibliotecas (Classes) que resolvem cada uma um problema específico.
+					</p>
+				</section>
+
+				<section id="component2">
+					<p align="justify">
+						Um pequeno exemplo de um componente:
+					</p>
+					<div data-markdown>
+						```
+						import {Component} from '@angular/core'
+						@Component({
+							selector: 'my-app',
+							template: '<h1>Hello World!</h1>'
+						})
+						export class AppComponent {
+							name = 'MATERA'
+						}
+						```
+					</div>
+					<p class="fragment" align="justify">
+						Analisando o código acima, percebemos alguns pontos importantes. Primeiro, nós temos a importação da classe Component do núcleo do Angular, o que nos permite criar componentes utilizando o decorador @Component.
+					</p>
+				</section>
+
+				<section id="component3">
+					<h5>Decoradores</h5>
+					<p class="font-min" align="justify">
+						Decoradores de componentes sempre vem escrito acima da declaração da classe do seu componente e servem para “dizer” ao Angular como este componente deve trabalhar, alguns decoradores são:
+					</p>
+					<p class="fragment font-min" align="justify">
+						<ul>
+							<li class="font-min" align="justify"><strong>Selector</strong>: Irá informar ao Angular qual nome deverá utilizar na tag HTML</li>
+							<li class="font-min" align="justify"><strong>Template</strong>: Irá informar ao Angular qual o template de View que irá utilizar, podendo importar um arquivo .html ou usando o template no próprio arquivo TypeScript, utilizando templates literais com <code>&lt;div&gt;&lt;/div&gt;</code>, interpolando as variáveis da mesmo forma que faria no arquivo HTML, com {{variavel}}</li>
+						</ul>
+					</p>
+				</section>
+
+				<section id="importacao">
+					<h5>Depêndencias</h5>
+					<p class="fragment font-min" align="justify">
+						Para o Angular, assim como o falecido AngularJS, é muito importante a importação dos módulos e componentes que você irá fazer uso. Como convenção, você tem os arquivos main.ts, app.module.ts e o app.routes.ts, dividindo a responsabilidade da sua aplicação.
+					</p>
+					<p class="fragment font-min" align="justify">
+						O objetivo do app.module é basicamente importar todos os recursos que a aplicação irá utilizar e defini-las em um módulo – onde possamos fazer o bootstrap – ou inicialização da nossa aplicação. Essa inicialização é feita pelo main.ts, que é o core da aplicação chamado no index.html.
+					</p>
+				</section>
+
+				<section id="diretivas1">
+					<h5>Diretivas</h5>
+					<p class="font-min" align="justify">
+						O Angular também possui um recurso “mágico” para utilizar na camada de View, que são as Diretivas, que são atributos HTML especiais que aceitam um certo grau de lógica de programação na camada do template.
+					</p>
+					<ul>
+						<li class="fragment">
+							<p class="font-min" align="justify">
+								<strong>*ngIf</strong>: Remove ou adiciona um componente com base em uma expressão booleana:
+								<div data-markdown>
+									<script type="text/template">
+									```
+										<section *ngIf="showSection==true"></section>
+									```
+									</script>
+								</div>
+							</p>
+						</li>
+						<li class="fragment">
+							<p class="font-min" align="justify">
+								<strong>*ngFor</strong>: Percorre um laço de repetição fazendo o bind (ligação) do conteúdo dentro da tag que carregar a diretiva:
+								<div data-markdown>
+									<script type="text/template">
+									```
+										<li *ngFor="let item of list"></li>
+									```
+									</script>
+								</div>
+							</p>
+						</li>
+					</ul>
+				</section>
+
+				<section id="diretivas2">
+					<h5>Mais alguns exemplos de diretivas</h5>
+					<ul>
+						<li class="fragment">
+							<p class="font-min" align="justify">
+								<strong>[ngClass]</strong>: Faz o bind (ligação) de classe no html, a chave do objeto representa o nome da classe a ser aplicada, o valor do objeto representa a condição ou expressão:							
+								<div data-markdown>
+									<script type="text/template">
+									```
+										<div [ngClass]="{'is-active': pagina == 'home'}"></div>
+									```
+									</script>
+								</div>
+							</p>
+						</li>
+						<li class="fragment">
+							<p class="font-min" align="justify">
+								<strong>[(ngModel)]</strong>: O famoso <em>two-way data-binding</em>, ou ligação de dados em duas vias, além de controle de validação dos formulários:
+								<div data-markdown>
+									<script type="text/template">
+									```
+										<input [(ngModel)]="userName">
+									```
+									</script>
+								</div>
+							</p>
+						</li>
+					</ul>
+				</section>
+
+				<section id="services1">
+					<h5>Services</h5>
+					<p class="fragment" align="justify">
+						Services são basicamente classes Singleton, que é um padrão de software (do inglês Design Pattern), garantindo a instância única de uma classe, para assim ter um ponto global de acesso ao objeto.
+					</p>
+					<p class="fragment" align="justify">
+						Basicamente, o service serve para “guardar a lógica do negócio”, consumindo os end-points da API e retornando ou enviando os dados de acordo com a requisição vinda do componente.
+					</p>
+				</section>
+
+				<section id="services2">
+					<h5>Criar um Service</h5>
+					<p class="font-min fragment" align="justify">
+						Para criar um serviço no Angular, basta criar uma Classe e decorá-la com o decorador "@Injectable()", como por exemplo:
+						<div class="fragment" data-markdown>
+							```
+								@Injectable()
+								export class MyService() {}
+							```
+						</div>
+					</p>
+					<br>
+					<p class="font-min fragment" align="justify">
+						A injeção de Service dentro do Componente é feito por meio de importação e pela aplicação do Service no construtor:
+						<div class="fragment" data-markdown>
+							```
+								import {MyService} from '../../providers/myservice.service'
+
+								constructor(private service: MyService){}
+							```
+						</div>
+					</p>
+				</section>
+
+				<section id="arquitetura1">
+					<h5>Arquitetura</h5>
+					<p class="font-minimun fragment" align="justify">
+						Entendendo o que seja o Angular e como ele se relaciona com os componentes, diretivas e services, podemos passar a pensar na sua Arquitetura:	
+						<div class=" fragment diagrama">
+							<img src="./img/diagrama.png" alt="diagrama">
+							<span class="font-minimun" id="detalheImg">No Angular tudo é centrado no Component. Conforme você pode analisar mais ao centro do diagrama o componente angular é definido por meio de um Metadata​, que nada mais é que aquele objeto {} definido dentro do decorador @Component​. Este mesmo componente possui um Template​ e a comunicação de dados entre a parte lógica do Componente e o Template é realizada por meio de Property Bindings, ou Ligação por meio de propriedades.</span>
+						</div>
+					</p>
+				</section>
+
+				<section id="vamosComecar">
+					<h3>Hands-on</h3>
+				</section>
+
+				<section id="node">
+					<h5>Node</h5>
+					<p class="font-min fragment" align="justify">
+						Em linhas gerais o node.js é uma plataforma escrita em javascript feita para rodar código javascript. Em uma simples analogia, o Node.js seria a soma do PHP+Apache. é importante frisar que o Node.js roda código javascript apenas no lado do servidor. Utilizaremos o node aqui não para criar API's ou renderizar HTML no lado do servidor. Iremos utilizar o node como ferramenta principal para desenvolvimento. Por meio dele vamos instalar a linha de comando do angular e executar nossa aplicação localmente.
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Verificando a versão do Node (v8.9.4)</b>
+						<div class="fragment" data-markdown>
+								```
+								node -v
+								```
+						</div>
+					</p>
+				</section>
+
+				<section id="NPM">
+					<h5>NPM</h5>
+					<p class="font-min fragment" align="justify">
+						NPM vem de Node Package Manager ou gerenciador de pacotes do Node. O NPM é distribuído juntamente com a plataforma do node e é por meio dele que iremos instalar todas nossas dependências de desenvolvimento e bibliotecas.
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Instalando a versão do NPM</b>
+						<div class="fragment" data-markdown>
+								```
+								npm install npm@latest -g
+
+								npm install npm@5.5.1 -g
+								```
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Verificando a versão do NPM</b>
+						<div class="fragment" data-markdown>
+								```
+								npm -v
+								```
+						</div>
+					</p>
+				</section>
+
+				<section id="angularCli">
+					<h5>Angular CLI</h5>
+					<p class="font-min fragment" align="justify">
+						Uma vez instalado o Node/NPM, precisamos instalar a interface de linha de comando do Angular. Agora sim vamos começar de fato a trabalhar com node, pelo gerenciador de pacotes npm.
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Instalando Angular CLI</b>
+						<div class="fragment" data-markdown>
+								```
+								npm i -g @angular/cli@latest
+
+								npm i -g @angular/cli@1.6.3
+								```
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Link com última versão</b>
+						<div class="fragment" data-markdown>
+								```
+								npm link @angular/cli
+								```
+						</div>
+					</p>
+				</section>
+
+				<section id="primeiroProjeto">
+					<h5>Angular CLI</h5>
+					<p class="font-min fragment" align="justify">
+							Para criar um projeto Angular, utilizando do Angular CLI.
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Criando o projeto</b>
+						<div class="fragment" data-markdown>
+								```
+								ng new euvim --style=scss
+								```
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						<b>Incluindo Angular Material</b>
+						<div class="fragment" data-markdown>
+								```
+								npm install --save @angular/material
+								npm install --save @angular/cdk
+								npm install --save @angular/animations
+								npm install --save hammerjs
+								npm install --save-dev @angular-devkit/core
+								```
+						</div>
+					</p>
+
+					<p class="font-min fragment" align="justify">
+						<b>Executando o projeto</b>
+						<div class="fragment" data-markdown>
+								```
+								ng serve
+								```
+						</div>
+					</p>
+				</section>
+
+				<section id="fontsGoogle">
+					<h5>Fonts Icones Material</h5>
+					<p class="font-min fragment" align="justify">
+						Para utilizarmos os icones do Material precisamos importar suas fontes no arquivo index.html :
+						<div class="fragment" data-markdown>
+							<script type="text/template">
+								```
+								<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+								```
+							</script>
+						</div>
+						<p class="font-min fragment" align="justify">
+							Ficando da seguinte forma:
+							<div class="fragment" data-markdown>
+								<script type="text/template">
+									```
+									<head>
+										<meta charset="utf-8">
+										<title>Euvim</title>
+										<base href="/">
+
+										<meta name="viewport" content="width=device-width, initial-scale=1">
+										<link rel="icon" type="image/x-icon" href="favicon.ico">
+										<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+									</head>
+									```
+								</script>
+							</div>
+						</p>
+					</p>
+				</section>
+
+				<section id="hammer">
+					<h5>Hammer</h5>
+					<p class="font-min fragment" align="justify">
+						Alguns componentes (mat-slide-toggle, mat-slider, matTooltip) usam o HammerJS. Para obter o conjunto completo de recursos desses componentes, o HammerJS deve ser carregado no aplicativo.
+					</p>
+					<p class="font-min fragment" align="justify">
+						No arquivo src/main.js, importamos ele:
+						<div class="fragment" data-markdown>
+								```
+								...
+								import { environment } from './environments/environment';
+								import 'hammerjs';
+								...
+								```
+						</div>
+					</p>					
+				</section>
+
+				<section id="margens">
+					<h5>Ajuste margens e Tema</h5>
+					<p class="font-min fragment" align="justify">
+						No arquivo style.scss
+						<div class="fragment" data-markdown>
+								```
+								@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+								body{
+									margin:0px;
+									position: fixed;
+									left: 0px;
+									right: 0px;
+									top: 0px;
+									bottom: 0px;
+								}
+								```
+						</div>
+					</p>					
+				</section>
+
+				<section id="animacoes">
+					<h5>Animações Material</h5>
+					<p class="font-min fragment" align="justify">
+						Algumas animações do material dependendem do módulo <b>BrowserAnimationsModule</b> então vamos importálo.
+					</p>
+					<p class="font-min fragment" align="justify">
+						No arquivo app.module.ts
+						<div class="fragment" data-markdown>
+								```
+								...
+								import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+								...
+								...
+								imports: [
+									BrowserModule,
+									BrowserAnimationsModule
+								],
+								...
+								...
+								```
+						</div>
+					</p>					
+				</section>
+
+
+				<section id="animacoes">
+					<h5>Animações Material</h5>
+					<p class="font-min fragment" align="justify">
+						Algumas animações do material dependendem do módulo <b>BrowserAnimationsModule</b> então vamos importálo.
+					</p>
+					<p class="font-min fragment" align="justify">
+						No arquivo app.module.ts
+						<div class="fragment" data-markdown>
+								```
+								...
+								import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+								...
+								...
+								imports: [
+									BrowserModule,
+									BrowserAnimationsModule
+								],
+								...
+								...
+								```
+						</div>
+					</p>					
+				</section>
+
+				<section id="primeiroComponente">
+					<h5>Usando componente do Material</h5>
+					<p class="font-min" align="justify">
+						<a href="https://material.angular.io/components/categories" rel="nofollow">Componentes Angular Material</a> 
+					</p>				
+					<p class="font-min fragment" align="justify">
+						Para testarmos/utilizamos nosso primeiro componente vamos ao fim, do nosso arquivo app.component.html adicionar o seguinte trecho:
+						<div class="fragment" data-markdown>
+							<script type="text/template">
+								```
+								...
+								<form class="example-form">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Favorite food" value="Sushi">
+									</mat-form-field>
+
+									<mat-form-field class="example-full-width">
+										<textarea matInput placeholder="Leave a comment"></textarea>
+									</mat-form-field>
+								</form>
+								```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="primeiroComponenteImportar">
+					<h5>Não funcionou? Temos que importar nosso módulo</h5>
+					<p class="font-min fragment" align="justify">
+						Então em nosso arquivo app.module.ts, vamos importar o módulo conforme documentação: MatInputModule
+						<div class="fragment" data-markdown>
+							```
+							...
+							import { MatInputModule } from '@angular/material/input';
+							...
+							...
+							imports: [
+								BrowserModule,
+								BrowserAnimationsModule,
+								MatInputModule
+							],
+							...
+							...
+							```
+						</div>
+					</p>				
+				</section>
+
+				<section id="Fim">
+						<h5>Até a próxima aula =)</h5>
+				</section>
+
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+				<img onclick="showHide()" src="./img/logo.png" alt="matera">
+			</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 06)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 06</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="sumario">
+					<h5>Sumário Aula 06</h5>
+					<ul class="font-min" align="justify">
+						<li>Conceitos</li>
+						<ul>
+							<li>Datas</li>
+						</ul>
+						<li>Hands-on</li>
+						<ul>
+							<li>Refatorando Módulos e Rotas</li>
+							<li>Adicionando Rota de Disciplina</li>
+							<li>Adicionando Consulta de Disciplina</li>
+							<li>Adicionando Serviço de Professor</li>
+							<li>Adicionando Formulário de Disciplina</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section id="datas">
+					<h5>Datas</h5>
+					<p class="fragment" align="justify">
+						Para trabalharmos com datas, vamos usar o pipe do Angular referente a datas, <a href="https://angular.io/guide/pipes" target="_blank" class="font-minimun">Documentação</a>
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						{{element.data  | date:'dd/MM/yyyy'}} 
+						```
+						</script>
+					</div>
+					<p class="fragment" align="justify">
+						Porém no DatePicker do angular precisamos adicionar um provider
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import { MAT_DATE_LOCALE } from '@angular/material';
+						providers: [
+							{provide: MAT_DATE_LOCALE, useValue: 'pt-br'}    
+						]
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="handsOn">
+					<h5>Hands-on</h5>
+				</section>
+
+				<section id="criandoUsuarioRoute">
+					<h5>Criando rota usuário</h5>
+					<p class="font-min fragment" align="justify">Vamos inciar, a nossa refatoração, então vamos criar o arquivo usuario.routing.ts na pasta usuario</p>
+					<p class="font-min fragment" align="justify">Vamos importar esse arquivo em usuario.module.ts</p>
+				</section>
+
+				<section id="ajusteRotas">
+					<h5>Ajustando rota</h5>
+					<p class="font-min fragment" align="justify">Vamos ajustar nossa rota do main.module.ts, para usarmos a referencia do módulo, para o path usuario</p>
+					<p class="font-min fragment" align="justify">loadChildren: 'arquivo.sem.ts#NomeModule'</p>
+				</section>
+
+				<section id="importacoes">
+					<h5>Ajuste de importações</h5>
+					<p class="font-min fragment" align="justify">Vamos remover nossas declarations do form e consulta, no arquivo main.module.ts</p>
+					<p class="font-min fragment" align="justify">Vamos remover todas as importações que usamos, referente a estes componentes e adicionar para o usuario.module.ts</p>
+				</section>
+
+
+				<section id="replicar">
+					<h5>Tudo funcionando </h5>
+					<p class="font-min fragment" align="justify">Agora precisamos criar uma réplica deste módulo usuário para disciplinas</p>
+					<p class="font-min fragment" align="justify">Podemos copiar o módulo, e criar ele como disciplinas, ou refazermos todos os passos</p>
+					<p class="font-min fragment" align="justify">Se copiarmos, temos que alterar nome dos arquivos, nome das classes e ajustar em suas devidas importações</p>
+				</section>
+
+				<section id="rotaDisciplinas">
+					<h5>Vamos criar a rota para disciplinas</h5>
+					<p class="font-min fragment" align="justify">Vamos criar uma rota em main.routing.ts para nosso módulo disciplinas</p>
+					<p class="font-min fragment" align="justify">Vamos adicionar nosso routerLink no botão para acessar as disciplinas</p>
+					<p class="font-min fragment" align="justify">Por hora seu contéudo é igual a de usuários</p>
+				</section>
+
+
+				<section id="serviceDisciplinas">
+					<h5>No arquivo disciplina.service.ts</h5>
+					<p class="fragment" align="justify">Vamos ajustar somente nosso end-point</p>
+				</section>
+
+				<section id="ajustarConsulta">
+					<h5>Ajustando disciplina/consulta.component</h5>
+					<p class="font-min fragment" align="justify">Vamos no arquivo ts, e vamos ajustar o nome dos campos</p>
+					<p class="font-min fragment" align="justify">Depois vamos no arquivo HTML, e vamos ajustar nossos campos da nossa mat-table</p>
+					<p class="font-min fragment" align="justify">Caso haja campos com datas, podemos usar o pipe date:'dd/MM/yyyy' </p>
+				</section>
+
+				<section id="servicoProfessor">
+					<h5>Novo serviço</h5>
+					<p class="font-min fragment" align="justify">Precisamos na pasta src/app/main/disciplina um novo serviço para busca de professores</p>
+					<p class="font-min fragment" align="justify">Neste serviço usaremos o end-point de usuário porém passaremos  let httpParams = new HttpParams().set("tipo","PROFESSOR")</p>
+				</section>
+
+
+				<section id="forumarioDisciplinas">
+					<h5>Formulario</h5>
+					<p class="font-min fragment" align="justify">Vamos ajustar nosso disciplinas/formulario.component.ts</p>
+					<p class="font-min fragment" align="justify">Vamos ajustar nosso disciplinas/formulario.component.html</p>
+				</section>
+
+				<section id="fim">
+					<section><h5>Até a próxima aula =]</h5></section>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+			<img onclick="showHide()" src="./img/logo.png" alt="matera">
+		</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>
+

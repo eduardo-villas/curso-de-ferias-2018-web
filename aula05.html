@@ -1,0 +1,580 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 05)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 05</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="sumario">
+					<h5>Sumário Aula 05</h5>
+					<ul class="font-min" align="justify">
+						<li>Conceitos</li>
+						<ul>
+							<li>Navegação com Pametros</li>
+							<li>Observable</li>
+						</ul>
+						<li>Hands-on</li>
+						<ul>
+							<li>Utilizando Serviço na Consulta de Usuário</li>
+							<li>Adicionando Rota de Edição de Usuário</li>
+							<li>Utilizando Serviço no Formulário de Usuário</li>
+							<li>Consumindo APIs REST</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section id="navigate">
+					<h5>Navegação com parametros</h5>
+					<p class="" align="justify">
+						Para realizar navegações com parametros pelo ts, utilizamos dois recursos, o Router e o ActivateRoute
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						this._router.navigate(['/main/usuario/consulta']);
+						this._router.navigate(["/main/usuario/editar", id]);
+
+						this._activateRoute.params.subscribe(params=>{
+							this.id = params['id'];
+						});
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="observable">
+					<h5>OBSERVABLE</h5>
+					<p class="font-min fragment" align="justify">
+						Por definição é uma coleção que funciona de forma unidirecional, ou seja, ele emite notificações sempre que ocorre uma mudança em um de seus itens e a partir disto podemos executar uma ação
+					</p>
+					<p class="font-min fragment" align="justify">
+						Digamos que ele resolve o mesmo problema que a versão anterior do Angular havia resolvido com o $watch, porém sem usar força bruta. Enquanto no $watch verificamos todo nosso escopo por alterações após cada $digest cycle(o que tem um grande custo na performance), com Observable esta verificação não acontece, pois para cada evento é emitida uma notificação para nosso Observable e então tratamos os dados.
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						this._usuarioService.editar(this.form.value).subscribe(suc=>{
+							// to do something
+						});
+						```
+						</script>
+					</div>
+					<p class="font-min fragment" align="justify">
+						<a target="_blank" href="https://medium.com/tableless/entendendo-rxjs-observable-com-angular-6f607a9a6a00">mais sobre?</a>	
+					</p>
+				</section>
+				
+				<section id="handsOn">
+					<h5>Hands-On</h5>
+				</section>
+
+				<section id="consultaUsuarioService">
+					<h5>Usando o serviço em Consulta Usuário</h5>
+					<p class="font-min fragment" align="justify">No arquivo consulta.componente.ts vamos importar/injetar nosso serviço no construtor</p>
+					<p class="font-min fragment" align="justify">
+						Depois vamos criar algumas funções, para atualizar a listagem e realizar a exclusão <br>
+						<li class="font-min fragment" align="justify">excluir(id)</li>
+						<li class="font-min fragment" align="justify">atualizarListaDeUsuarios()</li>
+						<li class="font-min fragment" align="justify">editar(id) - Neste vamos precisar do router importado em nosso construtor</li>
+					</p>
+				</section>
+
+				<section id="consultaUsuarioService1">
+					<h5>Usando o serviço em Consulta Usuário</h5>
+					<p class="font-min fragment" align="justify">Ficando da seguinte forma nosso arquivo consulta.component.ts</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						public noResults$ = false; //Utilizado para mensagem quando não há registros
+						constructor(private _usuarioService: UsuarioService, private _router: Router) { }
+
+						ngOnInit() {
+							this.atualizarListaDeUsuarios();
+						}
+						excluir(id){
+							this._usuarioService.excluir(id);
+							this.atualizarListaDeUsuarios();
+						}
+						editar(id){
+							this._router.navigate(["/main/usuario/editar", id]);
+						}
+						private atualizarListaDeUsuarios(){
+							var items = this._usuarioService.listar();
+							this.noResults$ = items.length == 0;
+							this.dataSource = new MatTableDataSource(items);
+						}
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="consultaHtmlService">
+					<h5>Vincular o HTML as ações</h5>
+					<p class="font-min fragment" align="justify">No arquivo consulta.componente.html vamos colocar eventos para chamar estas ações</p>
+					<p class="font-min fragment" align="justify">Em nossos botões de edição e exclusão, e posteriormente podemos informar uma mensagem quando não haver registros</p>
+				</section>
+
+
+				<section id="consultaHtmlService1">
+					<h5>Como ficará nosso HTML</h5>
+					<p class="font-min fragment" align="justify">Primeiro vamos nos botões, vamos adicionar o evento (click) </p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						<button mat-icon-button color="primary" (click)="editar(element.id)" mdTooltip="Editar">
+							<mat-icon class="mat-24" aria-label="Editar">edit</mat-icon>
+						</button>
+						<button mat-icon-button color="danger" (click)="excluir(element.id)" mdTooltip="Excluir">
+							<mat-icon class="mat-24" aria-label="Excluir">delete</mat-icon>
+						</button>
+						...
+						```
+						</script>
+					</div>
+					<p class="font-min fragment" align="justify">Agora vamos por o html referente a mensagem de não haver registros</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						</mat-table>
+						<div *ngIf="noResults$" class="noResult">Nenhum resultado</div>
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="consultaHtmlService2">
+						<h5>Ajustando CSS</h5>
+						<p class="font-min fragment" align="justify">Queria minha mensagem mais ao centro da tabela quando não haver registros, então vamos no arquivo, consulta.compoenent.scss, e vamos adicionar o seguinte css</p>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							.noResult {
+								padding: 20px;
+								text-align: center;
+								font-size: 12px;
+							}
+							```
+							</script>
+						</div>
+					</section>
+
+				<section id="editarUsario">
+					<h5>Rota para editar usuário</h5>
+					<p class="fragment" align="justify">Vamos no arquivo main.routing.ts, incluir mais um filho</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						  {
+							path: 'usuario/adicionar',
+							component: FormularioComponent
+						  },
+						  {
+							path: 'usuario/editar/:id',
+							component: FormularioComponent
+						  }
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="formularioUsuarioService">
+					<h5>Usando o serviço no Formulário de Usuário</h5>
+					<p class="font-min fragment" align="justify">No arquivo formulario.componente.ts vamos importar/injetar nosso serviço(UsuarioService) e o ActivatedRoute em nosso construtor</p>
+					<p class="font-min fragment" align="justify">
+						Vamos ajustar nosso ngOnInit, para obter o parametro caso passado, e atribuir a uma variavel local
+					</p>
+					<p class="font-min fragment" align="justify">
+						Caso tenha este parametro vamos obter o usuário, e setar em nosso formulário, passando os campos senha e confirmação como null, depois removendo seus validadores.
+					</p>
+				</section>
+
+				<section id="formularioUsuarioService1">
+					<h5>Ficando da seguinte forma</h5>
+					<p class="font-min fragment" align="justify">Quando formos obter nosso usuário e caso não hava o parametro do formulário precisamos setar como null.
+					</p>
+					<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							public id;
+							constructor(private formBuilder: FormBuilder, private _usuarioService: UsuarioService, private _activateRoute: ActivatedRoute) 
+		
+							ngOnInit() {
+								this.id = null;    
+								this._activateRoute.params.subscribe(params=>{
+									this.id = params['id'];
+								})
+								if(this.id){
+									var item = <any> this._usuarioService.carregar(this.id);
+									item.senha = null;
+									item.confirmacao = null;
+									this.form.get("senha").setValidators(null);
+									this.form.get("confirmacao").setValidators(null);
+									this.form.setValue(item);
+								}
+							}
+							...
+							```
+							</script>
+						</div>
+				</section>
+
+
+				<section id="formularioUsuarioServiceSalvar">
+					<h5>Vamos criar função salvar()</h5>
+					<p class="font-min fragment" align="justify">No arquivo formulario.componente.ts vamos importar/injetar Router no construtor para redirecionarmos após salvar para a consulta</p>
+					<p class="font-min fragment" align="justify">
+						Vamos criar a função salvar, mudando seu end-point, se há o id alterações caso contrário incluimos, e após isso resetamos e redirecionamos o usuário;
+					</p>
+				</section>
+
+				<section id="formularioUsuarioServiceSalvar">
+					<h5>Ficando da seguinte forma</h5>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						constructor(private formBuilder: FormBuilder, private _usuarioService: UsuarioService, private _router: Router, private _activateRoute: ActivatedRoute) 
+						...
+						salvar() {
+							if(this.form.valid){
+							  if(this.id){
+								this._usuarioService.editar(this.form.value);
+							  } else {
+								this._usuarioService.adicionar(this.form.value);
+							  }
+							  this.form.reset();
+							  this._router.navigate(['/main/usuario/consulta']);
+							}
+						}
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="ajusteHTML">
+					<h5>Ajuste no html</h5>
+					<p class="fragment" align="justify">No arquivo formulario.componente.html vamos linkar ao botão salvar, e podemos mudar o seu nome caso haja ID</p>
+					<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							<button (click)="salvar()" [disabled]="!form.valid" type="button" color="primary"  mat-raised-button>
+								{{id ? 'Alterar' : 'Cadastrar'}}
+							</button>
+							...
+							```
+						</script>
+					</div>
+				</section>
+	
+
+				<section id="comsumindoRest">
+					<h5>Consumindo APIs REST</h5>
+					<p class="fragment" align="justify">Para começar a consumir api's rest, precisamos importar um módulo HttpClientModule e um provider HttpClient no arquivo main.module.ts </p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...						
+						import { HttpClientModule, HttpClient } from '@angular/common/http';
+						...
+						imports: [
+							...
+							HttpClientModule
+						],
+						...
+						providers: [
+							...
+							HttpClient
+						],
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="envioroment">
+						<h5>Environment</h5>
+						<p class="font-min fragment" align="justify">Como falamos da estrutura na primeira, aula temos os arquivos enviroments, que podemos armazenar algumas informações da nossa aplicação, em vários tipos de distribuições</p>
+						<p class="font-min fragment" align="justify">Neste caso vamos armazenar a "url" do nosso serviço, onde podemos definar um para cada enviroment. ("http://curso-ferias-2018.herokuapp.com")</p>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							export const environment = {
+								...
+								url : "http://curso-ferias-2018.herokuapp.com"
+							};
+							...
+							```
+							</script>
+						</div>
+						<p class="font-min fragment" align="justify">Lembre-se envioroment.ts (Mode desenvolvimento liveload) envioroment.prod.ts quando formos compilar em modo produção</p>
+				</section>
+
+				
+				<section id="usuarioServiceHttp">
+						<h5>Atualizando usuario.service</h5>
+						<p class="font-min fragment" align="justify">Com nosso enviorment definido vamos atualizar, nosso usuario.service.ts, para chamarmos a api, pelo http client</p>
+						<p class="font-min fragment" align="justify">Para isto vamos injetar o _httpClient em nosso contrtutor, e depois vamos subistituir cada método para nossa chamada http</p>
+				</section>
+
+				<section id="usuarioServiceHttp1">
+						<h5>Códigos que vamos incluir</h5>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							import { HttpClient } from '@angular/common/http';
+							import { environment } from '../../../environments/environment';
+							...
+							private _urlUsuario = environment.url+"/api/v1/usuarios";
+							...
+							return this._httpClient.post(this._urlUsuario, usuario, {responseType: 'text'});
+							return this._httpClient.delete(this._urlUsuario+"/"+id, {responseType: 'text'});
+							return this._httpClient.put(this._urlUsuario+"/"+usuario.id, usuario, {responseType: 'text'});
+							return this._httpClient.get<Array<Object>>(this._urlUsuario);
+							return this._httpClient.get<any>(this._urlUsuario+"/"+id);
+							```
+							</script>
+						</div>
+						<p class="font-min fragment" align="justify">Porque do responseType? Pode haver apis que não retornam o json em algumas respostas, ou o objeto esperado para o angular http client realizar a conversão, por isso mudamos para text, para que não haja erros</p>
+				</section>
+
+
+				<section id="usuarioServiceHttp2">
+						<h5>Como ficará nosso usuario.service.ts</h5>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							import { Injectable } from '@angular/core';
+							import { environment } from '../../../environments/environment';
+							import { HttpClient } from '@angular/common/http';
+
+							@Injectable()
+							export class UsuarioService {
+
+								private _urlUsuario = environment.url+"/api/v1/usuarios";
+
+								constructor(
+									private _httpClient : HttpClient
+								) { }
+
+								listar(){
+									return this._httpClient.get<Array<any>>(this._urlUsuario);
+								}
+
+								adicionar(usuario){
+									return this._httpClient.post(this._urlUsuario,usuario,{responseType:'text'});
+								}
+
+								carregar(id){
+									return this._httpClient.get<any>(this._urlUsuario+"/"+id);
+								}
+
+								editar(usuario) {
+									return this._httpClient.put(this._urlUsuario+"/"+usuario.id, usuario, {responseType : 'text'});
+								}
+
+								excluir(id){
+									return this._httpClient.delete(this._urlUsuario+"/"+id,{responseType:'text'})
+								}
+
+							}
+
+							```
+							</script>
+						</div>
+				</section>
+
+				<section id="AjusteComponentes">
+					<h5>Ajustando os componentes</h5>
+					<p class="font-min fragment" align="justify">Agora precisamos ajustar nossas chamadas, pois estamos retornando um observable, e não o objeto/array</p>
+					<p class="font-min fragment" align="justify">* consulta.component.ts</p>
+					<p class="font-min fragment" align="justify">* formulario.component.ts</p>
+					<p class="font-min fragment" align="justify">Pois não iremos retornar, um array ou um objeto e sim um observable, então precisamos verificar a mudança de seus status</p>
+				</section>
+
+				<section id="AjusteConsultaComponentTs">
+					<h5>Ajustando consulta.component.ts</h5>
+					<p class="font-min fragment" align="justify">Então nas chamadas de consulta, e exclusão, vamos ajustar para tratarmos o observable que será retornado do nosso service</p>
+					<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							excluir(id){
+								this._usuarioService.excluir(id).subscribe(suc=>{
+									this.atualizarListaDeUsuarios();
+								});
+							}							  
+							...
+							...
+							private atualizarListaDeUsuarios(){
+								this._usuarioService.listar().subscribe(suc => {
+									this.noResults$ = suc.length == 0;
+									this.dataSource = new MatTableDataSource(suc);
+								});
+							}
+							...
+							```
+							</script>
+						</div>
+				</section>
+
+
+				<section id="AjusteConsultaComponentTs1">
+					<h5>Ajustando formulario.component.ts</h5>
+					<p class="font-min fragment" align="justify">Primeiro vamos ajustar nossa ação de obtenção do registro para edição</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						ngOnInit() {
+							this.id = null;    
+							this._activateRoute.params.subscribe(params=>{
+								this.id = params['id'];
+							});
+							if(this.id){
+								this._usuarioService.carregar(this.id).subscribe(suc=>{
+								var item = Object(suc);
+								delete item.urlFoto;
+								item.senha = null;
+								item.confirmacao = null;
+								this.form.get("senha").setValidators(null);
+								this.form.get("confirmacao").setValidators(null);
+								this.form.setValue(item);
+								});
+							}
+						}		  
+						...
+						```
+						</script>
+					</div>
+					<p class="font-min fragment" align="justify">Delete? então neste caso quando obtivemos o resultado teve propriedades a mais que nosso formulário então precisamos remover essa propriedade </p>
+				</section>
+
+				<section id="AjusteConsultaComponentTs2">
+					<h5>Ajustando formulario.component.ts</h5>
+					<p class="font-min fragment" align="justify">Então nas chamadas de inclusão e edição, vamos ajustar para tratarmos o observable que será retornado do nosso service</p>
+					<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							salvar() {
+								if(this.form.valid){
+									if(this.id){
+										this._usuarioService.editar(this.form.value).subscribe(suc=>{
+											this.consultar();
+										});
+									} else {
+										this._usuarioService.adicionar(this.form.value).subscribe(suc=>{
+											this.consultar();
+										});
+									}
+								}
+							}
+							consultar() {
+								this.form.reset();
+								this._router.navigate(['/main/usuario/consulta']);
+							} 
+							...
+							```
+							</script>
+						</div>
+				</section>
+
+
+				<section id="fim">
+					<section><h5>Até a próxima aula =]</h5></section>
+				</section>
+
+
+
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+			<img onclick="showHide()" src="./img/logo.png" alt="matera">
+		</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>
+

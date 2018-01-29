@@ -1,0 +1,821 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 04)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 04</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="sumario">
+					<h5>Sumário Aula 04</h5>
+					<ul class="font-min" align="justify">
+						<li>Conceitos</li>
+						<ul>
+							<li>Formulários</li>
+							<li>Binding</li>
+							<li>Validadores</li>
+							<li>Mensagens de Erro</li>
+							<li>Array</li>
+							<li>Serviços</li>
+						</ul>
+						<li>Hands-on</li>
+						<ul>
+							<li>Adicionando Rota para Formulário de Usuário</li>
+							<li>Criando Formulário de Usuário</li>
+							<li>Criando ComboBox de Perfis</li>
+							<li>Adicionando Validações</li>
+							<li>Adicionando Mensagens de Erro</li>
+							<li>Validações Customizadas</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section id="formulario1">
+					<h5>Formulários</h5>
+					<p class="font-minimun" align="justify">
+						Para criação de formulário, fazemos utilizando reactive-forms, para termos mais dinamismo na criação e agilidade, tanto na criação e no tratamento dos seus dados:
+					</p>
+
+					<p class="fragment font-minimun" align="justify">
+						Ele é criado no arquivo TS, antes de haver sua renderização no DOM, sendo assim no contrutor, ngOnit ou em enventos que garanta a sua criação antes do HTML onde será mostrado
+					</p>
+
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						export class HeroDetailComponent4 {
+							heroForm: FormGroup;
+							states = states;
+						  
+							constructor(private fb: FormBuilder) {
+							  this.createForm();
+							}
+						  
+							createForm() {
+							  this.heroForm = this.fb.group({
+								name: ['', Validators.required ],
+								street: '',
+								city: '',
+								state: '',
+								zip: '',
+								power: '',
+								sidekick: ''
+							  });
+							}
+						  }
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="formulario2">
+					<h5>HTML FORMULÁRIO</h5>
+					<p class="font-min fragment" align="justify">
+						Em nosso html, normalmente teremos na tag form a propriedade definindo nosso groupForm [formGroup]="heroForm"
+					</p>
+
+					<p class="font-min fragment" align="justify">
+						E em nossos input teremos uma propriedade chamada formControlName="name" que realiza o vinculo do input com a propriedade do form
+					</p>
+
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<form [formGroup]="heroForm" fxLayout="column">
+							<mat-form-field fxFlex="100"> 
+								<input matInput formControlName="name" placeholder="Nome">
+							</mat-form-field>
+						</form>
+						```
+						</script>
+					</div>
+					<p class="font-minimun" ><a href="https://angular.io/guide/reactive-forms" target="_blank">Documentação</a></p>
+				</section>
+				
+				<section id="Binding">
+					<h5>Binding</h5>
+					<p align="justify">O Bind é feito no angular através dos []</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<mat-form-field fxFlex="47"> 
+							<mat-select formControlName="perfil" placeholder="Perfil">
+								<mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+									{{ perfil.descricao }}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>	
+						
+						
+						public perfis = [
+							{ id: "PROFESSOR", descricao: 'Professor' },
+							{ id: "ADMINISTRADOR", descricao: 'Administrador' },
+							{ id: "ALUNO", descricao: 'Aluno' },
+						];
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="validadores">
+					<h5>Validadores</h5>
+					<p align="justify">O Angular já tem alguns validatores, que temos para utilizarmos em nosso formulário, porém podemos criar os nossos validadores também:</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import {AbstractControl} from '@angular/forms';
+
+						export class MoneyValidator {
+							public static validateMaxBrl = (maxValue:number) => {
+								return (c:AbstractControl) =>{
+								   return true ? null : {
+										maxValue: {
+											valid: false
+										}
+									};
+								}
+							}
+							public static validateBeforeZero(c:AbstractControl) {
+								return true ? null : {
+									beforeZero: {
+										valid: false
+									}
+								};
+							}
+						}
+						```
+						</script>
+					</div>
+					<p class="font-minimun" ><a href="https://angular.io/guide/form-validation" target="_blank">Documentação</a></p>
+				</section>
+
+
+				<section id="messagemErro">
+					<h5>Mensagens de Erro</h5>
+					<p align="justify">Nas mensagens de erros temos uma tag chamada <mat-error> porém temos que fazer um condicional vinculando ao nosso form para validar se exibiremos essa mensagem de erro.</p>
+					<p class="fragment font-minimun" align="justify">Porém é possivel modulizar, ou componentizar esse comportamento, podemos fazer isso mais para frente</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<mat-form-field fxFlex="100"> 
+							<input matInput formControlName="nome" placeholder="Nome">
+							<mat-error *ngIf="form.controls['nome'].hasError('required')">
+								Campo obrigatório
+							</mat-error>
+						</mat-form-field>
+						```
+						</script>
+					</div>
+					<p class="font-minimun" ><a href="https://angular.io/guide/form-validation" target="_blank">Documentação</a></p>
+				</section>
+
+				<section id="array">
+					<h5>Array</h5>
+					<p class="font-min fragment" align="justify">
+						Como em outras linguages, o TS tem funções para manipularmos os arrays, vamos usar as seguintes:
+					</p>
+					<p class="font-min fragment" align="justify">
+						forEach
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							array.forEach(item=>{
+								console.log(item)
+							});
+							```
+							</script>
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						push
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							array.push(element);
+							```
+							</script>
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						find
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							array.find(item=> item.prop == search);
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="array1">
+						<h5>Array</h5>
+						<p class="font-min fragment" align="justify">
+							Mais algumas funções que vamos usar
+						</p>
+						<p class=" font-min fragment" align="justify">
+								findIndex
+								<div data-markdown class="fragment"  >
+									<script type="text/template">
+									```
+									array.findIndex(item=> item.prop == search);
+									```
+									</script>
+								</div>
+							</p>
+							<p class=" font-min fragment" align="justify">
+								splice
+								<div data-markdown class="fragment" >
+									<script type="text/template">
+									```
+									array.splice(index,1);
+									```
+									</script>
+								</div>
+							</p>
+				</section>
+
+
+				<section id="servicos">
+					<h5>Serviços</h5>
+					<p class="font-min fragment" align="justify">
+						Serviços são arquivos TS que são singletons, injetáveis, e armazenão nossa regra de negócio, e que irá chamar nosso httpCliente
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							import { Injectable } from '@angular/core';
+							@Injectable()
+		
+							export class UsuarioService {
+								constructor() { }
+							}
+							```
+							</script>
+						</div>
+					</p>
+			</section>
+
+
+				<section id="handsOn">
+					<h5>Hands-On</h5>
+				</section>
+
+				<section id="botaoVoltarCancelar">
+					<h5>Incluir a rota no botão cancelar</h5>
+					<p> Vamos alterar o arquivo  /src/app/main/usuario/formulario/formulario.component.html</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<button mat-raised-button color="warn" routerLink="/main/usuario/consulta">Cancelar</button>
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="formularioCreate">
+					<h5>Criando box perfis</h5>
+					<p class="font-min fragment" align="justify">Vamos uma variavel que será um array de objetos [{},{}] com nossos perfis, no arquivo formulario.component.ts</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						public perfis = [
+							{ id: "PROFESSOR", descricao: 'Professor' },
+							{ id: "ADMINISTRADOR", descricao: 'Administrador' },
+							{ id: "ALUNO", descricao: 'Aluno' },
+						];	
+						```
+						</script>
+					</div>
+					<p class="font-min fragment" align="justify">Agora vamos ajustar nosso html, nosso select com a diretiva *ngFor formulario.component.html</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<mat-select formControlName="perfil" placeholder="Perfil">
+							<mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+								{{ perfil.descricao }}
+							</mat-option>
+						</mat-select>
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="criarForm">
+					<h5>Criando o formulário</h5>
+					<p class="font-min fragment" align="justify">
+						Para isto precisamos importar as seguintes Modulos, ReactiveFormsModule , FormsModule
+					</p>
+					<p class="font-min fragment" align="justify">
+						E também precisamos importar um providers, que será o FormBuilder, todas essas importações irão ocorrer no main.module.ts
+					</p>
+					<script type="text/template">
+					```
+					....
+					import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+					....
+					imports: [
+						...
+						ReactiveFormsModule,
+						FormsModule
+					],
+					providers: [
+						FormBuilder
+					]
+					```
+					</script>
+				</section>
+
+
+				<section id="criarForm1">
+					<h5>Atualzando o ts</h5>
+					<p class="font-min fragment" align="justify">
+						Agora precisamos criar uma variavel que será nosso FormGroup com nome form
+					</p>
+					<p class="font-min fragment" align="justify">
+						Agora vamos injetar nosso provider, em nosso construtor.
+					</p>
+					<p class="font-min fragment" align="justify">
+						Vamos criar nosso objeto que referese ao nosso formulário:
+						<ul class="font-min fragment" align="justify">
+							<li>id</li>
+							<li>nome</li>
+							<li>email</li>
+							<li>login</li>
+							<li>perfil</li>
+							<li>senha</li>
+							<li>confirmacao</li>
+						</ul><br/>
+						<a class="font-minimun" href="https://angular.io/guide/reactive-forms" target="_blank">Documentação</a>
+					</p>
+				</section>
+
+
+				<section id="criarForm1.1">
+					<h5>Ficando da seguinte forma</h5>
+					<p class="font-min fragment" align="justify">
+						Lembrando que no nosso objeto o primeiro parametro é seu valor default e o segundo nosso Validator
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						constructor(private formBuilder: FormBuilder) {
+							this.form = formBuilder.group({
+								id: [null],
+								nome: [null, Validators.required],
+								email: [null, Validators.compose([Validators.required, Validators.email])],
+								login: [null, Validators.required],
+								perfil: [null, Validators.required],
+								senha: [null, Validators.required],
+								confirmacao: [null, Validators.required]
+							})
+						}
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="criarForm2">
+					<h5>Vinculando ao HTML</h5>
+					<p class="fragment" align="justify">
+						Usando o formGroup e formControlName
+					</p>
+					<p class="font-min fragment" align="justify">
+						Ficando da seguinte forma
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							<form [formGroup]="form" fxLayout="column">
+								<mat-form-field fxFlex="100"> 
+									<input matInput formControlName="nome" placeholder="Nome">
+								</mat-form-field>
+								<mat-form-field fxFlex="100"> 
+									<input matInput formControlName="email" placeholder="E-mail">
+								</mat-form-field>
+								<div fxFlex="100" fxLayout="row">
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="login" placeholder="Login">
+									</mat-form-field>
+									<span fxFlex="5"></span>
+									<mat-form-field fxFlex="47"> 
+										<mat-select formControlName="perfil" placeholder="Perfil">
+											<mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+											{{ perfil.descricao }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row">
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="senha" placeholder="Senha" type="password">
+									</mat-form-field>
+									<span fxFlex="5"></span>
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="confirmacao" placeholder="Confirmação" type="password">
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+									<button mat-raised-button color="primary" [disabled]="!form.valid">Salvar</button>
+									<button mat-raised-button color="warn" routerLink="/main/usuario/consulta">Cancelar</button>
+								</div>
+							</form>
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+
+
+				<section id="criarForm2">
+					<h5>Mensagens de erro</h5>
+					<p class="font-min fragment" align="justify">
+						Para atribuirmos messagem de erro utilizaremos a seguinte tag dentro do nosso mat-form-field
+						<div data-markdown class="fragment" >
+								<script type="text/template">
+								```
+								<mat-error *ngIf="form.controls['nome'].hasError('required')">
+									Campo obrigatório
+								</mat-error>
+								```
+							</script>
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						Ficando da seguinte forma
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							<form [formGroup]="form" fxLayout="column">
+								<mat-form-field fxFlex="100"> 
+									<input matInput formControlName="nome" placeholder="Nome">
+									<mat-error *ngIf="form.controls['nome'].hasError('required')">
+										Campo obrigatório
+									</mat-error>
+								</mat-form-field>
+								<mat-form-field fxFlex="100"> 
+									<input matInput formControlName="email" placeholder="E-mail">
+									<mat-error *ngIf="form.controls['email'].hasError('required')">
+										Campo obrigatório
+									</mat-error>
+									<mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
+										E-mail inválido
+									</mat-error>
+								</mat-form-field>
+								<div fxFlex="100" fxLayout="row">
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="login" placeholder="Login">
+									<mat-error *ngIf="form.controls['login'].hasError('required')">
+										Campo obrigatório
+									</mat-error>
+									</mat-form-field>
+									<span fxFlex="5"></span>
+									<mat-form-field fxFlex="47"> 
+										<mat-select formControlName="perfil" placeholder="Perfil">
+											<mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+											{{ perfil.descricao }}
+											</mat-option>
+										</mat-select>
+										<mat-error *ngIf="form.controls['perfil'].hasError('required')">
+										Campo obrigatório
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row">
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="senha" placeholder="Senha" type="password">
+									<mat-error *ngIf="form.controls['senha'].hasError('required')">
+										Campo obrigatório
+									</mat-error>
+									</mat-form-field>
+									<span fxFlex="5"></span>
+									<mat-form-field fxFlex="47"> 
+									<input matInput formControlName="confirmacao" placeholder="Confirmação" type="password">
+									<mat-error *ngIf="form.controls['confirmacao'].hasError('required')">
+										Campo obrigatório
+									</mat-error>
+									</mat-form-field>
+								</div>
+								<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+									<button mat-raised-button color="primary" [disabled]="!form.valid">Salvar</button>
+									<button mat-raised-button color="warn" routerLink="/main/usuario/consulta">Cancelar</button>
+								</div>
+							</form>
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="criarForm3">
+					<h5>Validação Customizada</h5>
+					<p class="font-min fragment" align="justify">
+						Criando uma validação customizada, como esta é um pouco mais complexa, abaixo o código e irei explicar:
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import {FormGroup} from '@angular/forms';
+						export class EqualsPasswordValidator {
+							public static validate(firstField, secondField) {
+								return (formGroup: FormGroup) => {       
+								(formGroup.controls && formGroup.controls[firstField].value == formGroup.controls[secondField].value) 
+									? formGroup.controls[secondField].setErrors(formGroup.controls[secondField].getError('required') ? {required: {valid:false}} : null) :
+									formGroup.controls[secondField].setErrors({passwordEquals: {valid: false}});
+								}
+							}
+						}
+						```
+						</script>
+					</div>
+				</section>
+				
+
+				<section id="criarForm4">
+					<h5>Usando a validação</h5>
+					<p class="font-min fragment" align="justify">
+						Abaixo o código que vamos usar para usar nossa validação, iremos atribuir como um parametro adicionar, pois ela é no nível do formGroup se fosse no nível do nosso control, iriamos usar como os validadores já vistos anteriormente.
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						this.form = formBuilder.group({
+							id: [null],
+							nome: [null, Validators.required],
+							email: [null, Validators.compose([Validators.required, Validators.email])],
+							login: [null, Validators.required],
+							perfil: [null, Validators.required],
+							senha: [null, Validators.required],
+							confirmacao: [null, Validators.required]
+							}, {validator: EqualsPasswordValidator.validate("senha", "confirmacao")})
+						}
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="criarForm4">
+					<h5>Usando a validação HTML</h5>
+					<p class="font-min fragment" align="justify">
+						No arquivo formulario.component.html vamos usar nossa validação somente na confirmação de senha:
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<mat-error *ngIf="form.controls['confirmacao'].hasError('passwordEquals') && !form.controls['confirmacao'].hasError('required')">
+							Campo Confirmação não é igual ao campo Senha
+						</mat-error>
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="service">
+					<h5>Criando nosso service</h5>
+					<p class="font-min fragment" align="justify">
+						Vamos criar nosso primeiro, service que posteriormente iremos conectar a um servidor/mock, então dentro da pasta src/app/main/usuario.
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						ng g service usuario
+						```
+						</script>
+					</div>
+					<p class="font-min fragment" align="justify">
+						Vamos abrir o arquivo usuario.service.ts e vamos criar um array, que iremos manipular nas ações, por enquanto para não conectarmos a um serviço;
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						{id: 1, nome: 'José da Silva', login: "jose", email: 'jose@ponto.com.br', perfil:"ALUNO"},
+						{id: 2, nome: 'Mariano das Neves', login: "mariano", email: 'marino@ponto.com.br', perfil:"ALUNO"},
+						{id: 3, nome: 'Magyver da Silva', login: "magyver", email: 'magyver@ponto.com.br', perfil:"ALUNO"},
+						{id: 4, nome: 'Irineu Nunes', login: "irineu", email: 'irineu@ponto.com.br', perfil:"ALUNO"},
+						{id: 5, nome: 'Carlos Silva', login: "carlos1", email: 'carlos@ponto.com.br', perfil:"ALUNO"}
+						```
+						</script>
+					</div>
+				</section>
+
+
+
+				<section id="service1">
+					<h5 align="justify">Ações</h5>
+					<ul class="font-min">
+						<li class="fragment">Adicionar
+							<ul>
+								<li>Vamos criar uma função de adicionar(usuario), para realizar um push em nossa listagem de usuários</li>
+							</ul>
+						</li>
+						<li class="fragment">Excluir
+							<ul>
+								<li>Vamos criar uma função de excluir(id), para remover 1 item da lista de usuário</li>
+							</ul>
+						</li>
+						<li class="fragment">Editar
+							<ul>
+								<li>Vamos criar uma função de editar(usuario), para realizar a edição</li>
+							</ul>
+						</li>
+						<li class="fragment">Listar
+							<ul>
+								<li>Vamos criar uma função de listar(), para realizar listagem</li>
+							</ul>
+						</li>
+						<li class="fragment">Obter item
+							<ul>
+								<li>Vamos criar uma função de carregar(id), para obter 1 registro</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+
+				<section id="service1.1">
+					<h5 align="justify">Ações Service</h5>
+					<p class="font-min"> Ficando da seguinte forma nosso serviço</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import { Injectable } from '@angular/core';
+
+						@Injectable()
+						export class UsuarioService {
+
+							private usuarios = [
+								{id: 1, nome: 'José da Silva', login: "jose", email: 'jose@ponto.com.br', perfil:"ALUNO"},
+								{id: 2, nome: 'Mariano das Neves', login: "mariano", email: 'marino@ponto.com.br', perfil:"ALUNO"},
+								{id: 3, nome: 'Magyver da Silva', login: "magyver", email: 'magyver@ponto.com.br', perfil:"ALUNO"},
+								{id: 4, nome: 'Irineu Nunes', login: "irineu", email: 'irineu@ponto.com.br', perfil:"ALUNO"},
+								{id: 5, nome: 'Carlos Silva', login: "carlos1", email: 'carlos@ponto.com.br', perfil:"ALUNO"}
+							];
+
+							constructor() { }
+							
+							adicionar(usuario){
+								let maxIdentifier = 0;
+								this.usuarios.forEach(usuario=>{
+								maxIdentifier < usuario.id ? maxIdentifier = usuario.id : maxIdentifier = maxIdentifier;
+								});
+								usuario.identifier = maxIdentifier + 1;
+								this.usuarios.push(usuario);
+							}
+
+							excluir(id){
+								let index = this.usuarios.findIndex(item=> item.id == id);
+								if(index > -1){
+								this.usuarios.splice(index, 1);
+								}
+							}
+
+							editar(usuario){
+								let index = this.usuarios.findIndex(item=> item.id == usuario.id);
+								if(index > -1){
+								this.usuarios[index] = usuario;
+								}
+							}
+
+							listar(){
+								return this.usuarios;
+							}
+
+							carregar(id){
+								return this.usuarios.find(item=> item.id == id);
+							}
+
+						}
+						```
+						</script>
+					</div>
+				</section>
+	
+				<section id="service2">
+						<h5 align="justify">Usar nosso service</h5>
+						<p>
+							Para usar nosso service precisamos importá-lo no módulo, main.module
+						</p>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							import { UsuarioService } from './usuario/usuario.service';
+							...
+							providers: [
+								....
+								UsuarioService
+							],
+							....
+							```
+							</script>
+						</div>
+				</section>
+
+
+
+				<section id="service2">
+					<h5 align="justify">Chamando nosso service</h5>
+					<p class="font-min" align="justify">
+						Para chamarmos nosso services é necessário que realizamos a injeção da sua classe no construtor:<br>
+						Então no arquivo src/app/main/usuario/consulta.component.ts
+					</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						constructor(private _usuarioService: UsuarioService) { 
+							let listaUsuarios = _usuarioService.listar();
+							this.dataSource = new MatTableDataSource<any>(listaUsuarios);
+						}
+						....
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="fim">
+					<h5>Até a próxima aula =]</h5>
+				</section>
+
+
+
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+			<img onclick="showHide()" src="./img/logo.png" alt="matera">
+		</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>
+

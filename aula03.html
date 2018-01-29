@@ -1,0 +1,480 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 03)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 03</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="sumario">
+						<section>
+							<h5>Sumário Aula 03</h5>
+							<ul class="font-min" align="justify">
+								<li>Conceitos</li>
+								<ul>
+									<li>Variáveis</li>
+									<li>Elementos/Model</li>
+									<li>DataSource</li>
+									<li>Formulários</li>									
+								</ul>
+								<li>Hands-on</li>
+								<ul>
+									<li>Configurando Rota de Consulta de Usuário</li>
+									<li>Tabela de Consulta de Usuários</li>
+								</ul>
+							</ul>
+						</section>
+				</section>
+				
+				<section id="variaveis">
+					<h5>Variáveis</h5>
+					<p class="font-min fragment" align="justify">
+						Ontem na nossa Table criamos 2 variáveis no arquivo consulta.component.ts
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							public displayedColumns = ['position', 'name', 'weight', 'symbol'];
+							public dataSource = new UsuarioDataSource();
+							```
+							</script>
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						Variaveis com tipo, quando usamos a primeira letra maiuscula estamos usando "Wrapper" podendo gerar problema na build produção
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							enable:boolean = true;
+							curso:string = "Angular";
+							```
+							</script>
+						</div>
+					</p>
+					<p class="font-min fragment" align="justify">
+						Private, Protected, Public 
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							private enable:boolean;
+							protected enable:boolean;
+							public enable:boolean;
+							enable:boolean;
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="interfaceModel">
+					<h5>Interface/Model</h5>
+					<p class="font-min fragment" align="justify">
+						No caso do exemplo que copiamos ele usou a interface, para modelar o seu objeto de retorno consulta.component.ts, porém nas ultimas aulas podemos abordar sobre fazer uma interface, para providers.
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							export interface Element {
+								name: string;
+								position: number;
+								weight: number;
+								symbol: string;
+							}
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="interfaceModel">
+					<h5>DataSource</h5>
+					<p class="font-min fragment" align="justify">
+						No exemplo da dataTable, ele criar uma classe para simular uma request, e criar o DataSource da mat-table
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							export class UsuarioDataSource extends DataSource<any> {
+								connect(): Observable<Element[]> {
+									return Observable.of([
+									{position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+									{position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+									{position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'}
+									]);
+								}
+								disconnect() {}
+							}
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+				<section id="formulario1">
+					<h5>Formulários</h5>
+					<p align="justify">
+						Hoje iremos só abordar sobre como fazemos o formulário no HTML sem vinculo com o reactive-forms.
+					</p>
+
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<form fxLayout="column">
+							<mat-form-field fxFlex="100"> 
+								<input matInput placeholder="Nome">
+							</mat-form-field>
+							<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+								<button type="button" mat-raised-button color="primary">Salvar</button>
+								<button type="button" mat-raised-button color="warn" routerLink="/main/cancelar">Cancelar</button>
+							</div>
+						</form>
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="hansOn">
+						<h5>Hands-on</h5>
+				</section>
+
+				<section id="criandoTable1">
+					<h5>Criando table usuários</h5>
+					<p class="font-min fragment" align="justify">
+						Vamos criar nossa tabela de usuários conforme documentação do angular, porém ajustando nossos campos para os dados que iremos apresentar do usuário
+					</p>
+					<p class="font-minimun">
+						<a href="https://material.angular.io/components/table/overview" target="_blank">Documentação</a>
+					</p>
+					<p class="font-min fragment" align="justify">
+						Primeiro vamos importar nosso módulo em main.module.ts
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							...
+							import { MatTableModule } from '@angular/material';
+							...
+							imports: [
+								...
+								MatTableModule
+							],
+							...
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+
+				<section id="criandoTable2">
+					<h5>HTML</h5>
+					<p class="font-min fragment" align="justify">
+						Vamos ajustar nosso html, que copiamos da documentação, para o representar as informações do usuário no arquivo consulta.component.html
+					</p>
+					<p class="font-min" align="justify">
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							<div class="mat-elevation-z8">
+								<mat-table #table [dataSource]="dataSource">
+									<ng-container matColumnDef="nome">
+										<mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+										<mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+									</ng-container>
+									<ng-container matColumnDef="login">
+										<mat-header-cell *matHeaderCellDef> Login </mat-header-cell>
+										<mat-cell *matCellDef="let element"> {{element.login}} </mat-cell>
+									</ng-container>
+									<ng-container matColumnDef="email">
+										<mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+										<mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+									</ng-container>
+										<ng-container matColumnDef="perfil">
+										<mat-header-cell *matHeaderCellDef> Perfil </mat-header-cell>
+									<mat-cell *matCellDef="let element"> {{element.perfil}} </mat-cell>
+									</ng-container>
+									<ng-container matColumnDef="id">
+										<mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
+										<mat-cell *matCellDef="let element" fxFlex="10" class="buttons">
+											<button mat-icon-button color="primary"  mdTooltip="Editar">
+												<mat-icon class="mat-24" aria-label="Editar">edit</mat-icon>
+											</button>
+											<button mat-icon-button color="danger" mdTooltip="Excluir">
+												<mat-icon class="mat-24" aria-label="Excluir">delete</mat-icon>
+											</button>
+										</mat-cell>
+									</ng-container>
+									<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+									<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+								</mat-table>
+								<button mat-fab color="primary">
+									<mat-icon class="mat-24" aria-label="Adicionar">add</mat-icon>
+								</button> 
+								</div>
+							```
+							</script>
+						</div>
+					</p>
+				</section>
+
+
+				<section id="criandoTable3">
+						<h5>TS</h5>
+						<p class="font-min fragment" align="justify">
+							Vamos ajustar nosso ts, que copiamos da documentação, para o representar as informações do usuário no arquivo consulta.component.ts
+						</p>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							import { Component, OnInit } from '@angular/core';
+							import { DataSource } from '@angular/cdk/collections';
+							import { Observable } from 'rxjs/Observable';
+							import 'rxjs/add/observable/of';
+							
+							@Component({
+							  selector: 'app-consulta',
+							  templateUrl: './consulta.component.html',
+							  styleUrls: ['./consulta.component.scss']
+							})
+							export class ConsultaComponent implements OnInit {
+							
+							  public displayedColumns = ['nome', 'login', 'email', 'perfil', 'id'];
+							  public dataSource = new UsuarioDataSource();
+							
+							  constructor() { }
+							  ngOnInit() {}
+							
+							}
+							
+							export interface Element {
+							  id: number;
+							  nome: string;
+							  login: number;
+							  email: string;
+							  perfil: string;
+							}
+							
+							export class UsuarioDataSource extends DataSource<any> {
+							  
+							  connect(): Observable<any[]> {
+								return Observable.of([
+								  {id: 1, nome: 'José da Silva', login: "jose", email: 'jose@ponto.com.br', perfil:"Aluno"},
+								  {id: 2, nome: 'Mariano das Neves', login: "mariano", email: 'marino@ponto.com.br', perfil:"Aluno"},
+								  {id: 3, nome: 'Magyver da Silva', login: "magyver", email: 'magyver@ponto.com.br', perfil:"Aluno"},
+								  {id: 4, nome: 'Irineu Nunes', login: "irineu", email: 'irineu@ponto.com.br', perfil:"Aluno"},
+								  {id: 5, nome: 'Carlos Silva', login: "carlos", email: 'carlos@ponto.com.br', perfil:"Aluno"}
+								]);
+							  }
+							
+							  disconnect() {}
+							}
+							
+							```
+							</script>
+						</div>
+				</section>
+
+				<section id="criandoTable4">
+						<h5>CSS</h5>
+						<p class="font-min fragment" align="justify">
+							Vamos ajustar o CSS do nosso FabButton para que fique no local desejado.
+						</p>
+						<div data-markdown class="fragment" >
+							<script type="text/template">
+							```
+							.mat-fab{
+								position: fixed;
+								right: 20px;
+								bottom: 20px;
+							}
+							```
+							</script>
+						</div>
+				</section>
+	
+
+				<section id="addRotaUsuario">
+					<h5>Adicionando Rota para Formulário de Usuário</h5>
+					<p>Vamos adicionar a rota no main.routing.ts</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						children: [
+							{
+								path: 'usuario/consulta',
+								component: ConsultaComponent
+							},
+							{
+								path: 'usuario/adicionar',
+								component: FormularioComponent
+							}
+						]
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+				<section id="addRotaFab">
+					<h5>Adicionar Rota FabButton</h5>
+					<p>Vamos adicionar a rota ao nosso FabButton responsável por redirecionar o usuário para tela de cadastro de usuários, no arquivo consulta.component.html</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						...
+						<button mat-fab color="primary" routerLink="/main/usuario/adicionar">
+							<mat-icon class="mat-24" aria-label="Adicionar">add</mat-icon>
+						</button> 
+						...
+						```
+						</script>
+					</div>
+				</section>
+
+
+				<section id="formularioCreate">
+					<h5>Criando Formulário de Usuário</h5>
+					<p>Vamos fazer somente o HTML, sem o reactive form</p>
+					<p class="fragment">Primeiro vamos importar no main.module.ts nossos módulos necessários:</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import { FlexLayoutModule } from '@angular/flex-layout';
+						import { ... MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
+						...
+						imports: [
+							...
+							FlexLayoutModule,
+							MatFormFieldModule,
+							MatSelectModule,
+							MatInputModule
+						],
+						...
+						```
+						</script>
+					</div>
+
+				</section>
+
+				<section id="formularioCreate">
+					<h5>Criando Formulário de Usuário</h5>
+					<p>Agora vamos fazer nosso HTML</p>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						<form fxLayout="column">
+							<mat-form-field fxFlex="100"> 
+								<input matInput placeholder="Nome">
+							</mat-form-field>
+							<mat-form-field fxFlex="100"> 
+								<input matInput placeholder="E-mail">
+							</mat-form-field>
+							<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+								<mat-form-field fxFlex="47"> 
+								<input matInput placeholder="Login">
+								</mat-form-field>
+								<mat-form-field fxFlex="47"> 
+								<mat-select placeholder="Perfil">
+									<mat-option>
+										Aluno
+									</mat-option>
+									<mat-option>
+										Professor
+									</mat-option>
+								</mat-select>
+								</mat-form-field>
+							</div>
+							<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+								<mat-form-field fxFlex="47"> 
+								<input matInput placeholder="Senha" type="password">
+								</mat-form-field>
+								<mat-form-field fxFlex="47"> 
+								<input matInput placeholder="Confirmação" type="password">
+								</mat-form-field>
+							</div>
+							<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+								<button mat-raised-button color="primary">Salvar</button>
+								<button mat-raised-button color="warn" routerLink="/main/usuario/consulta">Cancelar</button>
+							</div>
+							</form>
+						```
+						</script>
+					</div>
+				</section>
+	
+				<section id="fim">
+					<h5>Até a próxima aula =]</h5>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+			<img onclick="showHide()" src="./img/logo.png" alt="matera">
+		</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>

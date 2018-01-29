@@ -1,0 +1,746 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Curso de Férias - 2018 (Aula 02)</title>
+
+	<link rel="stylesheet" href="css/style.css">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section class="center" id="home">
+				<h3>Curso de Férias Angular - Aula 02</h3>
+				<div class="link-name-group">
+					<a href="https://github.com/altitdb" target="blank" class="left">
+						@altitdb
+					</a>
+					<a href="https://github.com/arthurfritz" target="blank" class="right">
+						@arthurfritz
+					</a>
+				</div>
+			</section>
+
+			<section id="sumario">
+				<h5>Sumário</h5>
+				<ul class="font-min" align="justify">
+					<li class="fragment">Conceitos</li>
+					<ul>
+						<li class="fragment">Modules</li>
+						<li class="fragment">Componentes</li>
+						<li class="fragment">Rotas</li>
+						<li class="fragment">Layout</li>
+					</ul>
+					<li class="fragment">Hands-on</li>
+					<ul>
+						<li class="fragment">Criando Módulo</li>
+						<li class="fragment">Criando Componente</li>
+						<li class="fragment">Configurando Rotas</li>
+						<li class="fragment">Adicionando Layout</li>
+						<li class="fragment">Criando Módulo de Usuário</li>
+						<li class="fragment">Criando Componente de Consulta de Usuário</li>
+						<li class="fragment">Criando Componente de Formulário de Usuário</li>
+						<li class="fragment">Configurando Rota de Consulta de Usuário</li>
+					</ul>
+				</ul>
+			</section>
+
+			<section id="modulo">
+				<h5>Modules</h5>
+				<p class="fragment font-min" align="justify">
+					src/app/main/main.module.js
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							import { NgModule } from '@angular/core';
+							import { CommonModule } from '@angular/common';
+							
+							@NgModule({
+								imports: [
+									CommonModule
+								],
+								declarations: []
+							})
+							export class MainModule { }
+							```
+							</script>
+					</div>
+				</p>
+				<p class="fragment font-min" align="justify">
+					Em resumo um módulo, é um conjunto de funcionalidades (componentes/diretivas/providers) do angular, onde podemos isolá-lo
+					de nossa aplicação e reutilizar em outros projetos, ou pontos do projeto.
+					<br> Ou seja no módulo, contém as suas funcionalidades e suas dependências.
+				</p>
+			</section>
+
+			<section id="componente">
+				<h5>Componente</h5>
+				<p class="fragment font-min" align="justify">
+					Um componente é um conjunto de arquivos, que utilizamos para disponibilizar uma funcionalidade, no angular.
+					<br/> Por exemplo tela de main, então para esta tela/componente
+					<app-main> teremos os seguintes arquivos:
+						<ul class="font-min">
+							<li class="fragment">src/app/main/main.component.scss</li>
+							<li class="fragment">src/app/main/main.component.html</li>
+							<li class="fragment">src/app/main/main.component.spec.ts</li>
+							<li class="fragment">src/app/main/main.component.ts</li>
+						</ul>
+				</p>
+			</section>
+			<section id="componenteArquivos1">
+				<h5>Componente Arquivos Layout</h5>
+				<p class="fragment font-min" align="justify">
+					<li class="font-min fragment" align="justify">src/app/main/main.component.scss</li>
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							empty
+							```
+							</script>
+					</div>
+					<li class="font-min fragment" align="justify">src/app/main/main.component.html</li>
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							<p>
+								main works!
+							</p>
+							```
+							</script>
+					</div>
+				</p>
+			</section>
+
+			<section id="componenteArquivos2">
+				<h5>Componente Comportamento</h5>
+				<p class="fragment font-min" align="justify">
+					<li class="font-min fragment" align="justify">src/app/main/main.component.ts</li>
+					<div data-markdown class="fragment">
+						<script type="text/template">
+								```
+								import { Component, OnInit } from '@angular/core';
+	
+								@Component({
+									selector: 'app-main',
+									templateUrl: './main.component.html',
+									styleUrls: ['./main.component.scss']
+								})
+								export class MainComponent implements OnInit {
+									
+									constructor() { }
+									
+									ngOnInit() {
+										
+									}
+								}
+								```
+								</script>
+					</div>
+				</p>
+			</section>
+
+			<section id="componenteArquivos3">
+				<h5>Componente Teste</h5>
+				<p class="fragment font-min" align="justify">
+					<li class="font-min fragment" align="justify">src/app/main/main.component.spec.ts</li>
+					<div data-markdown class="fragment">
+						<script type="text/template">
+								```
+								import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+								import { MainComponent } from './main.component';
+								
+								describe('MainComponent', () => {
+								  let component: MainComponent;
+								  let fixture: ComponentFixture<MainComponent>;
+								
+								  beforeEach(async(() => {
+									TestBed.configureTestingModule({
+									  declarations: [ MainComponent ]
+									})
+									.compileComponents();
+								  }));
+								
+								  beforeEach(() => {
+									fixture = TestBed.createComponent(MainComponent);
+									component = fixture.componentInstance;
+									fixture.detectChanges();
+								  });
+								
+								  it('should create', () => {
+									expect(component).toBeTruthy();
+								  });
+								});
+								```
+								</script>
+					</div>
+				</p>
+			</section>
+
+
+			<section id="componenteImportacao">
+				<h5>Criou um component?</h5>
+				<p class="fragment font-min" align="justify">
+					Não esqueça é necessário realizar a importação no módulo que irá utilizá-lo, e importamos/declaramos no item do @NgModule,
+					declarations:[MainComponent]
+					<br> src/app/main/main.module.js
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							import { NgModule } from '@angular/core';
+							import { CommonModule } from '@angular/common';
+							import { MainComponent } from './main.component';
+
+							@NgModule({
+								imports: [
+									CommonModule
+								],
+								declarations: [MainComponent]
+							})
+							export class MainModule { }
+							```
+							</script>
+					</div>
+				</p>
+			</section>
+
+			<section id="rota">
+				<h5>Rotas</h5>
+				<p class="fragment font-min" align="justify">
+					src/app/app.routing.ts (Redirecionamento)
+					<div data-markdown class="fragment">
+						<script type="text/template">
+								```
+								import { NgModule } from '@angular/core';
+								import { RouterModule } from '@angular/router';
+
+								@NgModule({
+									imports: [
+										RouterModule.forRoot([
+										{ path: '', redirectTo: '/main', pathMatch: 'full' }
+										], {useHash:true})
+									]
+								})
+								export class AppRoutingModule { }
+								```
+								</script>
+					</div>
+				</p>
+				<a align="justify" class="font-minimun" href="https://angular.io/guide/router" target="_blank">Documentação</a>
+			</section>
+
+			<section id="rotaInjecao">
+				<h5>Rotas Inclusão Componente</h5>
+				<p class="fragment font-minimun" align="justify">
+					src/app/main/main.routing.ts
+					<div data-markdown class="fragment">
+						<script type="text/template">
+								```
+								import { NgModule } from '@angular/core';
+								import { RouterModule } from '@angular/router';
+								import { MainComponent } from './main.component';
+								@NgModule({
+									imports: [
+										RouterModule.forChild([
+											{ 
+												path: 'main', 
+												component: MainComponent
+											}
+										])
+									]
+								})
+								export class MainRouting { }
+								```
+								</script>
+					</div>
+					<p class="fragment font-minimun" align="justify">
+						A injeção/inclusão do componente, é necessário que no html inserimos a seguinte tag:
+						<div data-markdown class="fragment">
+							<script type="text/template">
+									```
+									<router-outlet></router-outlet>
+									```
+									</script>
+						</div>
+					</p>
+				</p>
+			</section>
+
+			<section id="layout">
+				<h5>Layout</h5>
+				<p class="fragment" align="justify">
+					Instalando Flex
+					<div data-markdown class="fragment">
+						<script type="text/template">
+								```
+								npm install --save @angular/flex-layout
+								```
+								</script>
+					</div>
+					<p class="fragment font-minimun">
+						<br/>
+						<br/>
+						<br/>
+						<a href="https://github.com/angular/flex-layout/wiki/API-Documentation" target="_blank">Documentação</a>
+					</p>
+				</p>
+			</section>
+
+			<section id="handsOn">
+				<h3>Hands-On</h3>
+			</section>
+
+
+
+			<section id="criarModulo">
+				<h3>Criando Módulo e Componente</h3>
+				<p class="fragment" align="justify">
+					Para criamos módulos e componentes, vamos usar o próprio Angular Cli para não precisarmos digitar tanto código.
+				</p>
+				<p class="fragment" align="justify">
+					Dentro da pasta "app", primeiro criamos o módulo depois nosso componente:
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							ng g module main
+							```
+							</script>
+					</div>
+					<div data-markdown class="fragment">
+						<script type="text/template">
+							```
+							ng g component main
+							```
+							</script>
+					</div>
+				</p>
+			</section>
+
+			<section id="criarRotas">
+				<h3>Configurando nossas rotas</h3>
+				<p class="fragment" align="justify">
+					E agora vamos usar o Angular Cli para fazer nossas rotas
+					<b>#sqn</b> o generate dele não tem suporte as rotas :(
+				</p>
+				<img class="fragment" src="https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif">
+			</section>
+
+			<section id="criarRotas1">
+				<h3>Redirecionamento</h3>
+				<p align="justify">
+					src/app/app.routing.ts
+				</p>
+				<div data-markdown class="fragment">
+					<script type="text/template">
+						```
+						import { NgModule } from '@angular/core';
+						import { RouterModule } from '@angular/router';
+
+						@NgModule({
+							imports: [
+								RouterModule.forRoot([
+								{ path: '', redirectTo: '/main', pathMatch: 'full' }
+								], {useHash:true})
+							]
+						})
+						export class AppRoutingModule { }
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="criarRotas2">
+				<h3>Injeção Componente</h3>
+				<p align="justify">
+					src/app/main/main.routing.ts
+				</p>
+				<div data-markdown class="fragment">
+					<script type="text/template">
+						```
+						import { NgModule } from '@angular/core';
+						import { RouterModule } from '@angular/router';
+						import { MainComponent } from './main.component';
+
+						@NgModule({
+							imports: [
+								RouterModule.forChild([
+								{ path: 'main', 
+									component: MainComponent
+								}
+								])
+							]
+						})
+						export class MainRouting { }
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="importacao">
+				<h3>Incluindo as Rotas nos Módulos</h3>
+				<p class="font-min" align="justify">
+					Temos 2 módulos, o app.module.ts e o main.module.ts porém ambos não temos a importação de suas Rotas.
+					<br/> Primeiro vamos no app.module.ts
+				</p>
+				<div data-markdown class="fragment">
+					<script type="text/template">
+						```
+						...
+						import { RouterModule } from '@angular/router';
+						import { MainModule } from "./main/main.module";
+						import { AppRoutingModule } from "./app.routing";
+						...
+						imports: [
+									BrowserModule,
+									BrowserAnimationsModule,
+									MatInputModule,
+									RouterModule,
+									MainModule,
+									AppRoutingModule
+								],
+						...
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="importacao2">
+				<h3>Incluindo as Rotas nos Módulos</h3>
+				<p align="justify">
+					Agora vamos no main.module.ts
+				</p>
+				<div data-markdown class="fragment">
+					<script type="text/template">
+						```
+						...
+						import { MainRouting } from './main.routing';
+						import { RouterModule } from "@angular/router";
+						...
+						imports: [
+									CommonModule,
+									RouterModule,
+									MainRouting
+								],
+						...
+						```
+						</script>
+				</div>
+			</section>
+
+
+			<section id="importacao3">
+				<h3>Vamos ajustar nossos HTML</h3>
+				<p align="justify">
+					Agora vamos no src/app/app.component.html
+				</p>
+				<div data-markdown class="fragment">
+					<script type="text/template">
+						```
+						<router-outlet></router-outlet>
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="addLayout">
+				<h3>Vamos adicionar layout</h3>
+				<p align="justify">
+					Não iremos utilizar neste momento, porém já deixaremos importado em nosso projeto
+				</p>
+				<div class="fragment" data-markdown class="fragment">
+					<script type="text/template">
+						```
+						npm install --save @angular/flex-layout
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="modulosParaMenu">
+				<h3>Menu Lateral</h3>
+				<p class="font-min" align="justify">
+					Para o menu lateral vamos usar algumas tags do material sendo elas:
+				</p>
+				<ul class="font-min">
+					<li class="fragment" align="justify">mat-button</li>
+					<li class="fragment" align="justify">mat-card</li>
+					<li class="fragment" align="justify">mat-icon</li>
+					<li class="fragment" align="justify">mat-icon-button</li>
+					<li class="fragment" align="justify">mat-list-item</li>
+					<li class="fragment" align="justify">mat-sidenav-container</li>
+					<li class="fragment" align="justify">mat-sidenav</li>
+					<li class="fragment" align="justify">mat-toolbar</li>
+				</ul>
+				<p class="fragment font-min" align="justify">
+					* Lembre-se para utilizá-las importar no seu respectivo módulo
+				</p>
+			</section>
+
+			<section id="nossoHtml">
+				<h3>HTML</h3>
+				<p class="font-min" align="justify">
+					Ficará da seguinte forma nosso src/app/main/main.component.html
+				</p>
+				<div class="fragment" data-markdown class="fragment">
+					<script type="text/template">
+						```
+						<mat-sidenav-container>
+							<mat-sidenav #sidenav>
+							<a mat-button style="height: 0; position: absolute;"></a>  
+								<mat-nav-list>
+								<mat-list-item href="#/main">
+									<button mat-icon-button >
+										<mat-icon>info</mat-icon>
+									</button>
+									<a mdLine>Usuários</a>
+								</mat-list-item>
+								<mat-list-item href="#/main">
+									<button mat-icon-button >
+										<mat-icon>info</mat-icon>
+									</button>
+									<a mdLine>Disciplinas</a>
+								</mat-list-item>
+								<mat-list-item href="#/main">
+									<button mat-icon-button >
+										<mat-icon>info</mat-icon>
+									</button>
+
+									<a mdLine>Relatório</a>
+								</mat-list-item>
+								</mat-nav-list>
+							</mat-sidenav>
+							<mat-toolbar color="primary">
+								<button mat-icon-button (click)="sidenav.open()">
+									<mat-icon>menu</mat-icon>
+								</button>
+								<span>Eu vim</span>
+							</mat-toolbar>
+							<mat-card id="content">
+								<router-outlet></router-outlet>
+							</mat-card>
+						</mat-sidenav-container>
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="importacaoNecesaria">
+				<h3>Importações Necessárias</h3>
+				<p class="font-min" align="justify">
+					Para utilizarmos esses componentes do Material vamos importar no módulo referente ao main.component.ts, que será o main.module.ts:
+				</p>
+				<div class="fragment" data-markdown class="fragment">
+					<script type="text/template">
+						```
+						...
+						import { FlexLayoutModule } from "@angular/flex-layout";
+						import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule } from '@angular/material';
+						...
+						imports: [
+							CommonModule,
+							MainRouting,
+							RouterModule,
+							FlexLayoutModule,
+							MatIconModule,
+							MatSidenavModule,
+							MatCardModule,
+							MatListModule,
+							MatToolbarModule,
+							MatButtonModule
+						],
+						...
+						```
+						</script>
+				</div>
+			</section>
+
+
+			<section id="nossoCss">
+				<h3>Ajustes de css</h3>
+				<p class="font-minimun" align="justify">
+					Como pretendemos posteriormente colocar um botão flutante, vamos fazer alguns ajustes no scss, no arquivo src/app/main/main.component.scss
+				</p>
+				<div class="fragment" data-markdown class="fragment">
+					<script type="text/template">
+						```
+						mat-sidenav-container{
+							position: fixed;
+							margin: 0px;
+							height: 100%;
+							width: 100%;
+						}
+						
+						#content{
+							position: fixed;
+							left: 0px;
+							right: 0px;
+							bottom: 0px;
+							top: 65px;
+							z-index: -1;
+							overflow-x: auto;
+						}
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="moduloUsuario">
+				<h5>Modulo Usuário</h5>
+				<p class="fragment" align="justify">Para criarmos o módulo do usuário para seguir nossa arquitetura, precisamos estar dentro da pasta src/app/main</p>
+				<div class="fragment" data-markdown class="fragment">
+					<script type="text/template">
+						```
+						ng g module usuario
+						```
+						</script>
+				</div>
+				<p class="fragment" align="justify">Em nosso módulo haverá 2 componentes, Consulta e Formulário</p>
+			</section>
+
+			<section id="componentesUsuario">
+				<h5>Como criamos o componente?</h5>
+				<p class="fragment" align="justify">Para criarmos o componente para nosso usuário módule, precisamos estar dentro da pasta src/app/main/usuario</p>
+				<div class="fragment" data-markdown>
+					<script type="text/template">
+						```
+						ng g component consulta
+						```
+						</script>
+				</div>
+				<br/>
+				<div class="fragment" data-markdown>
+					<script type="text/template">
+						```
+						ng g component formulario
+						```
+						</script>
+				</div>
+			</section>
+
+
+			<section id="rotaConsultaUsuario1">
+				<h5>Agora vamos importar esses componentes</h5>
+				<p class="fragment" align="justify">Vamos importalos no main.module.ts pois iremos usar as rotas do main.routing.ts</p>
+				<div class="fragment" data-markdown>
+					<script type="text/template">
+						```
+						...
+						import { ConsultaComponent } from './usuario/consulta/consulta.component';
+						import { FormularioComponent } from './usuario/formulario/formulario.component';
+						...
+						declarations: [MainComponent, ConsultaComponent, FormularioComponent]
+						...
+						```
+						</script>
+				</div>
+				<br/>
+			</section>
+
+
+			<section id="rotaConsultaUsuario2">
+				<h5>Adicionando a rota</h5>
+				<p class="fragment" align="justify">Então no nosso arquivo main.routing.ts vamor usar um atributo chamado children:</p>
+				<div class="fragment" data-markdown>
+					<script type="text/template">
+						```
+						...
+						component: MainComponent,
+						children: [
+							{
+							path: 'usuario/consulta',
+							component: ConsultaComponent
+							}
+						]
+						...
+						```
+						</script>
+				</div>
+			</section>
+
+
+			<section id="ajustandoHTML">
+				<h5>Referenciando o click botão</h5>
+				<p class="fragment" align="justify">Vamos no arquivo main.component.html, utilizando o routerLink</p>
+				<div class="fragment" data-markdown>
+					<script type="text/template">
+						```
+						...
+						<mat-list-item routerLink="/main/usuario/consulta" (click)="sidenav.close()">
+							<button mat-icon-button >
+								<mat-icon>info</mat-icon>
+							</button>
+							<a mdLine>Usuários</a>
+						</mat-list-item>
+						...
+						```
+						</script>
+				</div>
+			</section>
+
+			<section id="Fim">
+				<h5>Até a próxima aula =)</h5>
+			</section>
+
+		</div>
+	</div>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script>
+		function changeTema(val) {
+			document.getElementById("tema").setAttribute("href", "css/theme/" + val + ".css");
+		}
+		function showHide() {
+			let item = document.getElementById("selTema").getAttribute("style");
+			if (item == "display:none;") {
+
+			}
+			document.getElementById("selTema").setAttribute("style", item == "display:none;" ? "" : "display:none;");
+		}
+	</script>
+	<script>
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+	<div class="logo">
+		<img onclick="showHide()" src="./img/logo.png" alt="matera">
+	</div>
+	<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+		<option value="solarized">Solarized</option>
+		<option value="beige">Beige</option>
+		<option value="black">Black</option>
+		<option value="blood">Blood</option>
+		<option value="league">League</option>
+		<option value="moon">Moon</option>
+		<option value="night">Night</option>
+		<option value="serif">Serif</option>
+		<option value="simple">Simple</option>
+		<option value="sky">Sky</option>
+		<option value="white">White</option>
+	</select>
+</body>
+
+</html>
