@@ -21,7 +21,6 @@ export class FormularioComponent implements OnInit {
   public form : FormGroup;
   public id;
   public professores= [];
-  public professorSelecionado;
   
   constructor(private formBuilder: FormBuilder, private _disciplinaService: DisciplinaService, private _professorService: ProfessorService, private _router: Router, private _activateRoute: ActivatedRoute) {
     this.form = formBuilder.group({
@@ -53,7 +52,7 @@ export class FormularioComponent implements OnInit {
           dataInicio: suc.dataInicio,
           dataTermino: suc.dataTermino,
           urlLogo: suc.urlLogo,
-          instrutores:[]
+          professores:[]
         });
       });
     }
