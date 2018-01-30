@@ -1,0 +1,70 @@
+<div  fxLayout="column">
+  <form [formGroup]="form"  fxLayout="column">
+    <div fxFlex="100" fxLayout="row">  
+      <mat-form-field fxFlex="47"> 
+        <mat-select formControlName="segmento" placeholder="Segmento" >
+            <mat-option *ngFor="let segmento of segmentos" [value]="segmento.id">
+              {{ segmento.descricao }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['segmento'].hasError('required')">
+          Campo obrigatório
+        </mat-error>
+      </mat-form-field>
+      <span fxFlex="5"></span>
+      <mat-form-field fxFlex="47"> 
+        <input matInput formControlName="descricao" placeholder="Descrição" >
+        <mat-error *ngIf="form.controls['descricao'].hasError('required')">
+          Campo obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" fxLayout="row">
+      <mat-form-field fxFlex="47"> 
+        <input matInput (keypress)="abrirCalendario(dtInicio);" formControlName="dataInicio" [matDatepicker]="dtInicio" placeholder="Data Início">
+        <mat-datepicker-toggle matSuffix [for]="dtInicio"></mat-datepicker-toggle>
+        <mat-datepicker #dtInicio touchUi="true"></mat-datepicker>
+        <mat-error *ngIf="form.controls['dataInicio'].hasError('required')">
+          Campo obrigatório
+        </mat-error>
+      </mat-form-field>
+      <span fxFlex="5"></span>
+      <mat-form-field fxFlex="47"> 
+        <input matInput (keypress)="abrirCalendario(dtTermino);" formControlName="dataTermino" [matDatepicker]="dtTermino" placeholder="Data Término">
+        <mat-datepicker-toggle matSuffix [for]="dtTermino"></mat-datepicker-toggle>
+        <mat-datepicker #dtTermino touchUi="true"></mat-datepicker>
+        <mat-error *ngIf="form.controls['dataTermino'].hasError('required')">
+          Campo obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" fxLayout="row">
+      <mat-form-field fxFlex="75"> 
+          <input matInput formControlName="urlLogo" placeholder="Url Logo">
+          <mat-error *ngIf="form.controls['urlLogo'].hasError('required')">
+            Campo obrigatório
+          </mat-error>
+      </mat-form-field>
+      <span fxFlex="5"></span>
+      <img class="urlLogo" src="#"/>
+    </div>
+    <div fxFlex="100" fxLayout="row">
+      <mat-form-field fxFlex="75"> 
+        <mat-select placeholder="Professores" >
+            <mat-option *ngFor="let professor of professores" [value]="professor">
+              {{ professor.nome }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span fxFlex="5"></span>
+      <button mat-raised-button mat-icon-button color="primary">
+          <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <br/>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="salvar()">Salvar</button>
+        <button mat-raised-button color="warn" routerLink="/main/disciplina/consulta">Cancelar</button>
+    </div>
+  </form>
+</div>

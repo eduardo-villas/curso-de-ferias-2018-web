@@ -1,0 +1,41 @@
+<div class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="segmento">
+      <mat-header-cell *matHeaderCellDef> Segmento </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.segmento | titlecase}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="descricao">
+        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+        <mat-cell *matCellDef="let disciplina"> {{disciplina.descricao}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dataInicio">
+      <mat-header-cell *matHeaderCellDef> Início </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.dataInicio | date:'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dataTermino">
+      <mat-header-cell *matHeaderCellDef> Término </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.dataTermino  | date:'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="professores">
+      <mat-header-cell *matHeaderCellDef> Professores </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.professores.length}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina" fxFlex="10" class="buttons">
+          <button mat-icon-button color="primary"  matTooltip="Editar">
+            <mat-icon class="md-24"  (click)="editar(disciplina.id)" aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="danger" matTooltip="Remover">
+              <mat-icon class="md-24" (click)="remover(disciplina.id)" aria-label="Remover">delete</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div *ngIf="noResults$" class="noResult">Nenhum resultado</div>
+  <button mat-fab color="primary">
+    <mat-icon class="mat-24" routerLink="/main/disciplina/adicionar" aria-label="Adicionar">add</mat-icon>
+  </button> 
+</div>
