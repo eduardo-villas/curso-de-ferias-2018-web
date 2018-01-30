@@ -13,3 +13,5 @@
 ### [Aula 04](aulas/aula04.md)
 
 ### [Aula 05](aulas/aula05.md)
+
+### [Aula 06](aulas/aula06.md)
