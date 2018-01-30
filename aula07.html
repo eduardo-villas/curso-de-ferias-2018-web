@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Curso de Férias - 2018 (Aula 07)</title>
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link id="tema" rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center" id="home">
+					<h3>Curso de Férias Angular - Aula 07</h3>
+					<div class="link-name-group">
+						<a href="https://github.com/altitdb" target="blank" class="left">
+							@altitdb
+						</a>
+						<a href="https://github.com/arthurfritz" target="blank" class="right">
+							@arthurfritz
+						</a>
+					</div>
+				</section>
+
+				<section id="sumario">
+					<h5>Sumário Aula 07</h5>
+					<ul class="font-min" align="justify">
+						<li>Conceitos</li>
+						<ul>
+							<li>Injeção de Dependências</li>
+							<li>Qr Code</li>
+						</ul>
+						<li>Hands-on</li>
+						<ul>
+							<li>Continuar a aula anterior</li>
+							<li>Adicionando Popup de Professores</li>
+							<li>Adicionando QRCode</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section id="injecao">
+					<h5>Injeção de depêndencias</h5>
+					<div data-markdown class="fragment" >
+						<script type="text/template">
+						```
+						import { Component, Inject } from '@angular/core';
+						constructor(@Inject(ChatWidget) private chatWidget) { }
+						```
+						</script>
+					</div>
+					<p class="fragment" align="justify">
+						No acima, pedimos chatWidget que seja o singleton Angular associado com o classsímbolo ChatWidget ao chamar @Inject(ChatWidget). É importante notar que estamos usando ChatWidget suas tipografias e como uma referência ao seu singleton. Nós não estamos usando ChatWidgetpara instanciar nada, Angular faz isso para nós nos bastidores.
+						Ao usar TypeScript, @Inject só é necessário para injetar primitivas.
+					</p>
+					
+				</section>
+
+				<section id="qrCode">
+					<h5>Qr Code</h5>
+					<p class="fragment" align="justify">
+						Para utilizarmos o QR code vamos usar a API do google para gerar a imagem que vamos mostrar ao usuário.
+					</p>
+					<p class="fragment" align="justify">
+						<a href="https://developers.google.com/chart/infographics/docs/qr_codes" target="_blank">https://developers.google.com/chart/infographics/docs/qr_codes</a>
+					</p>
+				</section>
+
+				<section id="handsOn">
+					<h5>Hands-on</h5>
+				</section>
+
+				<section id="fim">
+					<section><h5>Até a próxima aula =]</h5></section>
+				</section>
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			function changeTema(val){
+				document.getElementById("tema").setAttribute("href","css/theme/"+val+".css");
+			}
+			function showHide(){
+				let item = document.getElementById("selTema").getAttribute("style");
+				if(item == "display:none;"){
+
+				}
+				document.getElementById("selTema").setAttribute("style",item == "display:none;" ? "" : "display:none;");
+			}
+		</script>
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<div class="logo">
+			<img onclick="showHide()" src="./img/logo.png" alt="matera">
+		</div>
+		<select id="selTema" onchange="changeTema(this.value);" style="display:none;">
+			<option value="solarized">Solarized</option>
+			<option value="beige">Beige</option>
+			<option value="black">Black</option>
+			<option value="blood">Blood</option>
+			<option value="league">League</option>
+			<option value="moon">Moon</option>
+			<option value="night">Night</option>
+			<option value="serif">Serif</option>
+			<option value="simple">Simple</option>
+			<option value="sky">Sky</option>
+			<option value="white">White</option>
+		</select>
+	</body>
+</html>
+
