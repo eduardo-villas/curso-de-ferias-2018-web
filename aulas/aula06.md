@@ -329,8 +329,8 @@ export class ConsultaComponent implements OnInit {
           <button mat-icon-button color="primary"  matTooltip="Editar">
             <mat-icon class="md-24"  (click)="editar(disciplina.id)" aria-label="Editar">edit</mat-icon>
           </button>
-          <button mat-icon-button color="danger" matTooltip="Remover">
-              <mat-icon class="md-24" (click)="remover(disciplina.id)" aria-label="Remover">delete</mat-icon>
+          <button mat-icon-button color="danger" matTooltip="Excluir">
+              <mat-icon class="md-24" (click)="excluir(disciplina.id)" aria-label="Excluir">delete</mat-icon>
           </button>
       </mat-cell>
     </ng-container>
