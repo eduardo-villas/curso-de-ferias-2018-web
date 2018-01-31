@@ -1,5 +1,5 @@
 
-## **Curso de Férias 2018 - Desenvolvimento Frontend com Angular - Aula 06**
+## **Curso de Férias 2018 - Desenvolvimento Frontend com Angular - Aula 07**
 
 Sumário
 =======
