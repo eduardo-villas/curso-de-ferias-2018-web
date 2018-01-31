@@ -7,11 +7,7 @@ Sumário
 * [Conceitos](#conceitos)
   * [Injeção de Dependências](#injeção-de-dependências)
 * [Hands-on](#hands-on)
-  * [Refatorando Módulos e Rotas](#refatorando-módulos-e-rotas)
-  * [Adicionando Rota de Disciplina](#adicionando-rota-de-disciplina)
-  * [Adicionando Consulta de Disciplina](#adicionando-consulta-de-disciplina)
-  * [Adicionando Serviço de Professor](#adicionando-serviço-de-professor)
-  * [Adicionando Formulário de Disciplina](#adicionando-formulário-de-disciplina)
+  * [Alterando Formulário de Disciplina](#Alterando Formulário de Disciplina)
   
 Conceitos
 =========
@@ -29,7 +25,7 @@ Hands-on
 ========
 
 Alterando Formulário de Disciplina
-------------------------------------
+----------------------------------
 ##### No arquivo src/app/main/disciplina/disciplina/disciplina.module.ts
 ``` typescript
 carregarImagem(event){
