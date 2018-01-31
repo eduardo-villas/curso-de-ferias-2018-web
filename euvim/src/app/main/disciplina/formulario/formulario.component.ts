@@ -21,8 +21,15 @@ export class FormularioComponent implements OnInit {
   public form : FormGroup;
   public id;
   public professores= [];
+  public professorSelecionado;
   
-  constructor(private formBuilder: FormBuilder, private _disciplinaService: DisciplinaService, private _professorService: ProfessorService, private _router: Router, private _activateRoute: ActivatedRoute) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private _disciplinaService: DisciplinaService, 
+    private _professorService: ProfessorService, 
+    private _router: Router, 
+    private _activateRoute: ActivatedRoute
+    ) {
     this.form = formBuilder.group({
       id: [null],
       descricao: [null, Validators.required],
@@ -30,7 +37,7 @@ export class FormularioComponent implements OnInit {
       dataInicio: [null, Validators.required],
       dataTermino: [null, Validators.required],
       urlLogo: [null],
-      instrutores: formBuilder.array([])
+      professores: formBuilder.array([])
     });
    }
   
@@ -54,6 +61,13 @@ export class FormularioComponent implements OnInit {
           urlLogo: suc.urlLogo,
           professores:[]
         });
+        suc.professores.forEach(disciplina => {
+          let item = this.professores.find(item=>{ return item.id == disciplina});
+          if(item){
+            this.professorSelecionado = item;
+            this.adicionarProfessor();
+          }
+        });
       });
     }
   }
@@ -75,6 +89,38 @@ export class FormularioComponent implements OnInit {
   consultar() {
     this.form.reset();
     this._router.navigate(['/main/disciplina/consulta']);
+  }
+
+  carregarImagem(event){
+    event.target.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/20804-200.png";
+  }
+
+  abrirCalendario(item){
+    item.open();
+  }
+
+  adicionarProfessor(){
+    let listaProfessores = (<FormArray>this.form.get("professores"));
+    if(!listaProfessores.value.includes(this.professorSelecionado.id)){
+      listaProfessores.value.push(this.professorSelecionado.id);
+    }
+    this.professorSelecionado.selected = true;
+    delete this.professorSelecionado;
+  }
+
+  carregarNomeProfessor(id){
+    let item = this.professores.find(item=>{ return item.id == id});
+    return item ? item.nome : "Professor indisponível";
+  }
+  
+  removerProfessor(id){
+    let listaProfessores = (<FormArray>this.form.get("professores"));
+    let index = listaProfessores.value.findIndex(item=>{return item == id});
+    if(index > -1){
+      listaProfessores.value.splice(index,1);
+    }
+    let item = this.professores.find(item=>{ return item.id == id});
+    item.selected = false;
   }
 
 }

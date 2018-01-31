@@ -40,30 +40,47 @@
     </div>
     <div fxFlex="100" fxLayout="row">
       <mat-form-field fxFlex="75"> 
-          <input matInput formControlName="urlLogo" placeholder="Url Logo">
+          <input matInput formControlName="urlLogo" placeholder="Url Logo" >
           <mat-error *ngIf="form.controls['urlLogo'].hasError('required')">
             Campo obrigatório
           </mat-error>
       </mat-form-field>
       <span fxFlex="5"></span>
-      <img class="urlLogo" src="#"/>
+      <img class="urlLogo" [src]="form.controls['urlLogo'].value" (error)="carregarImagem($event)"/>
     </div>
     <div fxFlex="100" fxLayout="row">
       <mat-form-field fxFlex="75"> 
-        <mat-select placeholder="Professores" >
+        <mat-select [(ngModel)]="professorSelecionado" [ngModelOptions]="{standalone: true}" placeholder="Professores" >
             <mat-option *ngFor="let professor of professores" [value]="professor">
               {{ professor.nome }}
             </mat-option>
         </mat-select>
-      </mat-form-field>
+        <mat-hint>
+          Necessário pelo menos 2 professores cadastrados
+        </mat-hint>
+      </mat-form-field>      
       <span fxFlex="5"></span>
-      <button mat-raised-button mat-icon-button color="primary">
+      <button mat-raised-button  mat-icon-button color="primary" [disabled]="professorSelecionado == null" (click)="adicionarProfessor()">
           <mat-icon>add</mat-icon>
       </button>
     </div>
+    <mat-list *ngIf="form.get('professores').value.length > 0">
+      <h3 mat-subheader>Professores selecionados</h3>
+      <ng-container *ngFor="let id of form.get('professores').value">
+        <mat-list-item>
+            <button mat-mini-fab type="button" color="warn" (click)="removerProfessor(id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <p fxFlexOffset="10px">
+              {{carregarNomeProfessor(id)}}
+            </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
     <br/>
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
-        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="salvar()">Salvar</button>
+        <button mat-raised-button color="primary"  [disabled]="!form.valid || form.get('professores').value.length < 2" (click)="salvar()">Salvar</button>
         <button mat-raised-button color="warn" routerLink="/main/disciplina/consulta">Cancelar</button>
     </div>
   </form>
