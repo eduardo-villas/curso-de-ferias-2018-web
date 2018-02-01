@@ -10,8 +10,13 @@ export class ProfessorService {
   private _urlProfessores = environment.url+"/api/v1/usuarios";
 
   listar(){
-    let httpParams = new HttpParams().set("tipo", "PROFESSOR")
+    let httpParams = new HttpParams().set("tipo","PROFESSOR")
     return this._httpClient.get<Array<Object>>(this._urlProfessores, {params:httpParams});
+  }
+
+  professor(id){
+    let httpParams = new HttpParams().set("tipo","PROFESSOR")
+    return this._httpClient.get<any>(this._urlProfessores+"/"+id, {params:httpParams});
   }
 
 }

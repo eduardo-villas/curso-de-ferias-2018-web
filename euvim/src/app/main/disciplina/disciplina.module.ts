@@ -5,12 +5,14 @@ import { FormularioComponent } from './formulario/formulario.component';
 
 import { DisciplinaRouting } from './disciplina.routing';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatTableModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatOptionModule, MatNativeDateModule, MatDatepickerModule, MAT_DATE_LOCALE, MatListModule } from '@angular/material';
+import { MatButtonModule, MatTableModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatOptionModule, MatNativeDateModule, MatDatepickerModule, MAT_DATE_LOCALE, MatListModule, MatDialogModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { DisciplinaService } from './disciplina.service';
+import { DisciplinaService } from '../services/disciplina.service';
 import { ProfessorService } from './professor.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProfessorComponent } from './professor/professor.component';
+import { QrcodeComponent } from './qrcode/qrcode.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDatepickerModule,
     MatNativeDateModule,
     MatListModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
@@ -40,6 +43,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClient,
     {provide: MAT_DATE_LOCALE, useValue: 'pt-br'}
   ],
-  declarations: [ConsultaComponent, FormularioComponent]
+  entryComponents: [ProfessorComponent, QrcodeComponent],
+  declarations: [ConsultaComponent, FormularioComponent, ProfessorComponent, QrcodeComponent]
 })
 export class DisciplinaModule { }

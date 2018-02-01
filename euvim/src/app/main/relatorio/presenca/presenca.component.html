@@ -1,0 +1,83 @@
+<div class="mat-elevation-z8">
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="!filtred" [disabled]="!filtred" (opened)="filtred = false" hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title fxFlex="70">
+            <mat-icon>filter_list</mat-icon> 
+            <div fxFlexOffset="10px"> Filtros</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>  
+        <form [formGroup]="form" fxLayout="column">
+          <div fxFlex="100" fxLayout="row">  
+            <mat-form-field fxFlex="47"> 
+              <mat-select formControlName="disciplina" placeholder="Disciplina" >
+                  <mat-option *ngFor="let disciplina of disciplinas" [value]="disciplina.id">
+                    {{ disciplina.descricao }}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['disciplina'].hasError('required')">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" fxLayout="row">
+            <mat-form-field fxFlex="47"> 
+              <input matInput (keypress)="abrirCalendario(dtInicio);" formControlName="dataInicio" [matDatepicker]="dtInicio" placeholder="Data Início">
+              <mat-datepicker-toggle matSuffix [for]="dtInicio"></mat-datepicker-toggle>
+              <mat-datepicker #dtInicio touchUi="true"></mat-datepicker>
+              <mat-error *ngIf="form.controls['dataInicio'].hasError('required')">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <span fxFlex="5"></span>
+            <mat-form-field fxFlex="47"> 
+              <input matInput (keypress)="abrirCalendario(dtTermino);" formControlName="dataFim" [matDatepicker]="dtTermino" placeholder="Data Término">
+              <mat-datepicker-toggle matSuffix [for]="dtTermino"></mat-datepicker-toggle>
+              <mat-datepicker #dtTermino touchUi="true"></mat-datepicker>
+              <mat-error *ngIf="form.controls['dataFim'].hasError('required')">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <br/>
+          <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+              <button mat-raised-button (click)="gerarRelatorio()" [disabled]="!form.valid" color="primary" >Filtrar</button>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <br/>
+  <div *ngIf="filtred" class="mat-elevation-z8">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of relatorio">
+        <mat-expansion-panel-header>
+          <mat-panel-title fxFlex="70">
+            {{item.usuario.nome}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Frequência {{item.frequencia}}%
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <h3 matSubheader>Presenças</h3>
+          <mat-list-item>
+            <mat-icon matListIcon>check</mat-icon>
+            <h3 matLine> Presente </h3>
+            <p matLine>
+              <span> DD/MM/YYYY </span>
+            </p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+              <mat-icon matListIcon>remove</mat-icon>
+              <h3 matLine> Ausente </h3>
+              <p matLine>
+                <span> DD/MM/YYYY </span>
+              </p>
+            </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>

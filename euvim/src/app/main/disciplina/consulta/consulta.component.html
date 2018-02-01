@@ -1,5 +1,19 @@
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina" fxFlex="10" class="buttons">
+          <button mat-icon-button matTooltip="QrCode">
+              <mat-icon class="md-24" (click)="exibirQrCode(disciplina)" aria-label="QrCode">screen_lock_portrait</mat-icon>
+          </button>
+          <button mat-icon-button color="primary"  matTooltip="Editar">
+            <mat-icon class="md-24"  (click)="editar(disciplina.id)" aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="danger" matTooltip="Remover">
+              <mat-icon class="md-24" (click)="remover(disciplina.id)" aria-label="Remover">delete</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="segmento">
       <mat-header-cell *matHeaderCellDef> Segmento </mat-header-cell>
       <mat-cell *matCellDef="let disciplina"> {{disciplina.segmento | titlecase}} </mat-cell>
@@ -18,17 +32,10 @@
     </ng-container>
     <ng-container matColumnDef="professores">
       <mat-header-cell *matHeaderCellDef> Professores </mat-header-cell>
-      <mat-cell *matCellDef="let disciplina"> {{disciplina.professores.length}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef  fxFlex="10"> Ações </mat-header-cell>
-      <mat-cell *matCellDef="let disciplina" fxFlex="10" class="buttons">
-          <button mat-icon-button color="primary"  matTooltip="Editar">
-            <mat-icon class="md-24"  (click)="editar(disciplina.id)" aria-label="Editar">edit</mat-icon>
-          </button>
-          <button mat-icon-button color="danger" matTooltip="Excluir">
-              <mat-icon class="md-24" (click)="excluir(disciplina.id)" aria-label="Excluir">delete</mat-icon>
-          </button>
+      <mat-cell *matCellDef="let disciplina"> 
+        <button mat-icon-button (click)="exibirProfessores(disciplina.professores)" matTooltip="Visualizar">
+            {{disciplina.professores.length}} 
+        </button>        
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
