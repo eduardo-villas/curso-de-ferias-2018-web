@@ -17,3 +17,5 @@
 ### [Aula 06](aulas/aula06.md)
 
 ### [Aula 07](aulas/aula07.md)
+
+### [Aula 08](aulas/aula08.md)
