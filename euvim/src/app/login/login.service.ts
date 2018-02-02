@@ -8,7 +8,7 @@ import { Promise } from 'q';
 @Injectable()
 export class LoginService {
 
-  private urlLogin = environment.URL+"/aouth/token";
+  private urlLogin = environment.URL+"/oauth/token";
 
   constructor(private _httpCliente: HttpClient, private _router:Router) { }
 
