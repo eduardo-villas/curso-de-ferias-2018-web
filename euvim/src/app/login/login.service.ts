@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Promise } from 'q';
 import { HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http/src/headers';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class LoginService {
