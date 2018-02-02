@@ -53,7 +53,11 @@ export class FormularioComponent implements OnInit {
     })
     this._professorService.listarProfessores().subscribe(suc=>{
       this.professores = suc;
+      this.getRegistroEdit();
     })
+  }
+
+  private getRegistroEdit(){
     if(this.identifier){
       this._loadingService.callNextStatus(true);
       this._disciplinaService.getItem(this.identifier).subscribe(suc=>{
