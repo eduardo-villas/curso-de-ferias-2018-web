@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Promise } from 'q';
+import { HttpParams } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http/src/headers';
 
 @Injectable()
 export class LoginService {
@@ -13,7 +15,17 @@ export class LoginService {
   constructor(private _httpCliente: HttpClient, private _router:Router) { }
 
   public login(dados) {
-    return this._httpCliente.post(this.urlLogin, dados);
+    const accessData = new HttpParams()
+                          .set('grant_type', 'password')
+                          .append('username', dados.usuario)
+                          .append('password', dados.senha);
+    const access = btoa('angular:alunos');
+    const headerss = new HttpHeaders().set('Authorization', 'Basic ' + access)
+                                      .append('Content-Type', access);
+    return this._httpCliente.post(this.urlLogin,
+                                  accessData.toString,
+                                 {headers: headerss}
+                                );
  }
 
   public deslogar(){
