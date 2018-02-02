@@ -16,9 +16,9 @@ import { LoadingService } from '../../../services/loading.service';
 export class FormularioComponent implements OnInit {
 
   public segmentos = [
-    { value: "Backend", description: 'Back-end' },
-    { value: "Front-end", description: 'Front-end' },
-    { value: "Mobile", description: 'Mobile' }
+    { value: "BACKEND", description: 'Back-end' },
+    { value: "FRONTEND", description: 'Front-end' },
+    { value: "MOBILE", description: 'Mobile' }
   ];
 
 
