@@ -20,10 +20,10 @@ export class LoginService {
                           .append('username', dados.usuario)
                           .append('password', dados.senha);
     const access = btoa('angular:alunos');
-    const headerss = new HttpHeaders().set('Authorization', 'Basic ' + access.toString())
+    const headerss = new HttpHeaders().set('Authorization', 'Basic ' + access)
                                       .append('Content-Type', 'application/x-www-form-urlencoded');
     return this._httpCliente.post(this.urlLogin,
-                                  accessData.toString,
+                                  accessData.toString(),
                                  {headers: headerss}
                                 );
  }
