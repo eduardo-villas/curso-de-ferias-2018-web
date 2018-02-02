@@ -9,7 +9,7 @@ export class RelatorioService {
 
   constructor(private _httpClient:HttpClient ) {}
 
-  private _urlRelatorio = environment.URL+"relatorio";
+  private _urlRelatorio = environment.URL+"/api/v1/relatorio";
 
   getPresencaDisciplina(filter){
     let httpParams = new HttpParams().append("dataInicio",moment(filter.dataInicio).format("YYYY-MM-DDD"))

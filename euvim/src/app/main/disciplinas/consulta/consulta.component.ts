@@ -18,7 +18,7 @@ import { LoadingService } from '../../../services/loading.service';
 })
 export class ConsultaComponent implements OnInit {
 
-  public displayedColumns = ['segmento', 'descricao', 'dataInicio', 'dataTermino','instrutores', 'id'];
+  public displayedColumns = ['segmento', 'descricao', 'dataInicio', 'dataTermino','professores', 'id'];
   
   public dataSource;
   public noResults$ = false;

@@ -8,7 +8,7 @@ export class DisciplinaService {
 
   constructor(private _httpClient:HttpClient ) { }
 
-  private _urlDisciplina = environment.URL+"disciplinas";
+  private _urlDisciplina = environment.URL+"/api/v1/disciplinas";
 
   adicionar(item){
     return this._httpClient.post(this._urlDisciplina, item, {responseType: 'text'});

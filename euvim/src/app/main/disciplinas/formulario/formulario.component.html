@@ -66,9 +66,9 @@
           <mat-icon>add</mat-icon>
       </button>
     </div>
-    <mat-list *ngIf="form.get('instrutores').value.length > 0">
+    <mat-list *ngIf="form.get('professores').value.length > 0">
         <h3 mat-subheader>Professores selecionados</h3>
-        <ng-container *ngFor="let id of form.get('instrutores').value">
+        <ng-container *ngFor="let id of form.get('professores').value">
           <mat-list-item>
               <button mat-mini-fab type="button" color="warn" (click)="removerProfessor(id)">
                   <mat-icon>delete</mat-icon>
@@ -82,7 +82,7 @@
     </mat-list>
     <br/>
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
-        <button mat-raised-button color="primary"  [disabled]="!form.valid || form.get('instrutores').value.length < 2" (click)="salvar()">{{ identifier ? 'Salvar' : 'Cadastrar'}}</button>
+        <button mat-raised-button color="primary"  [disabled]="!form.valid || form.get('professores').value.length < 2" (click)="salvar()">{{ identifier ? 'Salvar' : 'Cadastrar'}}</button>
         <button mat-raised-button color="warn" routerLink="/main/disciplina/consulta">Cancelar</button>
     </div>
   </form>

@@ -13,9 +13,6 @@
                     <mat-error *ngIf="form.controls['usuario'].hasError('required')">
                         Campo obrigatório
                     </mat-error>
-                    <mat-error *ngIf="!form.controls['usuario'].hasError('required') && form.controls['usuario'].hasError('email')">
-                        E-mail Inválido
-                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput formControlName="senha" placeholder="Senha" value="" type="password">

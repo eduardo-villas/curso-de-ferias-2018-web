@@ -59,7 +59,7 @@
           Frequência {{item.frequencia}} %
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-item-presenca *ngIf="item.show" [dataInicio]="disciplina.dataInicio" [dataFim]="disciplina.dataTermino" [periodoInicial]="form.value.dataInicio" [periodoFinal]="form.value.dataFim" [presencas]="item.presenca" ></app-item-presenca>
+      <app-item-presenca [dataInicio]="disciplina.dataInicio" [dataFim]="disciplina.dataTermino" [periodoInicial]="form.value.dataInicio" [periodoFinal]="form.value.dataFim" [presencas]="item.presenca" ></app-item-presenca>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       let item = JSON.parse(sessionStorage.getItem("access"));
-      let validacao = item && item.token != null;
+      let validacao = item && item.access_token != null;
       if(!validacao){
         this._router.navigate(["/login"]);
       }

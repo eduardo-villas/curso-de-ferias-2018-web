@@ -9,7 +9,7 @@ export class ProfessorService {
 
   constructor(private _httpClient:HttpClient ) { }
 
-  private _urlProfessores = environment.URL+"usuarios";
+  private _urlProfessores = environment.URL+"/api/v1/usuarios";
 
   listarProfessores(){
     let httpParams = new HttpParams().set("tipo","PROFESSOR")

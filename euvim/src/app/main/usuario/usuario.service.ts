@@ -9,7 +9,7 @@ export class UsuarioService {
 
   constructor(private _httpClient:HttpClient ) { }
 
-  private _urlUser = environment.URL+"usuarios";
+  private _urlUser = environment.URL+"/api/v1/usuarios";
 
   adicionar(item:Usuario){
     return this._httpClient.post(this._urlUser, item, {responseType: 'text'});

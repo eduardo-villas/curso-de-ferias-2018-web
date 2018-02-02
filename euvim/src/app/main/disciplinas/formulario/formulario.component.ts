@@ -42,7 +42,7 @@ export class FormularioComponent implements OnInit {
       dataInicio: [null, Validators.required],
       dataTermino: [null, Validators.required],
       urlLogo: [null],
-      instrutores : fb.array([])
+      professores : fb.array([])
     })
   }
   
@@ -65,9 +65,9 @@ export class FormularioComponent implements OnInit {
           dataInicio: suc.dataInicio,
           dataTermino: suc.dataTermino,
           urlLogo: suc.urlLogo,
-          instrutores:[]
+          professores:[]
         });
-        suc.instrutores.forEach(element => {
+        suc.professores.forEach(element => {
           let item = this.professores.find(item=>{ return item.id == element});
           if(item){
             this.selectProf = item;
@@ -107,7 +107,7 @@ export class FormularioComponent implements OnInit {
   }
 
   addProfessor(){
-    let arrayProf = (<FormArray>this.form.get("instrutores"));
+    let arrayProf = (<FormArray>this.form.get("professores"));
     if(!arrayProf.value.includes(this.selectProf.id)){
       arrayProf.value.push(this.selectProf.id);
     }
@@ -121,7 +121,7 @@ export class FormularioComponent implements OnInit {
   }
 
   removerProfessor(id){
-    let arrayProf = (<FormArray>this.form.get("instrutores"));
+    let arrayProf = (<FormArray>this.form.get("professores"));
     let index = arrayProf.value.findIndex(item=>{return item == id});
     if(index > -1){
       arrayProf.value.splice(index,1);
