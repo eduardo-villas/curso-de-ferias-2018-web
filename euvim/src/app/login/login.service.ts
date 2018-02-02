@@ -21,7 +21,7 @@ export class LoginService {
                           .append('password', dados.senha);
     const access = btoa('angular:alunos');
     const headerss = new HttpHeaders().set('Authorization', 'Basic ' + access)
-                                      .append('Content-Type', access);
+                                      .append('Content-Type', 'application/x-www-form-urlencoded');
     return this._httpCliente.post(this.urlLogin,
                                   accessData.toString,
                                  {headers: headerss}
