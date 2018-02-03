@@ -294,13 +294,13 @@ Adicionando Layout
         <mat-nav-list>
         <mat-list-item href="#/main">
             <button mat-icon-button >
-                <mat-icon>info</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </button>
             <a mdLine>Usuários</a>
         </mat-list-item>
         <mat-list-item href="#/main">
             <button mat-icon-button >
-                <mat-icon>info</mat-icon>
+                <mat-icon>list</mat-icon>
             </button>
             <a mdLine>Disciplinas</a>
         </mat-list-item>
@@ -477,13 +477,13 @@ export class MainRouting { }
         <mat-nav-list>
         <mat-list-item routerLink="/main/usuario/consulta" (click)="sidenav.close()">
             <button mat-icon-button >
-                <mat-icon>info</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </button>
             <a mdLine>Usuários</a>
         </mat-list-item>
         <mat-list-item href="#/main">
             <button mat-icon-button >
-                <mat-icon>info</mat-icon>
+                <mat-icon>list</mat-icon>
             </button>
             <a mdLine>Disciplinas</a>
         </mat-list-item>

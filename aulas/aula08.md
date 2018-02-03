@@ -641,38 +641,38 @@ export class MainRouting { }
 
 ``` typescript
 <mat-sidenav-container>
-    <mat-sidenav #sidenav>
-    <a mat-button style="height: 0; position: absolute;"></a>  
-        <mat-nav-list>
-        <mat-list-item routerLink="/main/usuario/consulta" (click)="sidenav.close()">
-            <button mat-icon-button >
-                <mat-icon>info</mat-icon>
-            </button>
-            <a mdLine>Usuários</a>
-        </mat-list-item>
-        <mat-list-item routerLink="/main/disciplina/consulta" (click)="sidenav.close()">
-            <button mat-icon-button >
-                <mat-icon>info</mat-icon>
-            </button>
-            <a mdLine>Disciplinas</a>
-        </mat-list-item>
-        <mat-list-item routerLink="/main/relatorio" (click)="sidenav.close()">
-            <button mat-icon-button >
-                <mat-icon>info</mat-icon>
-            </button>
-            <a mdLine>Relatório</a>
-        </mat-list-item>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-toolbar color="primary">
-        <button mat-icon-button (click)="sidenav.open()">
-            <mat-icon>menu</mat-icon>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-button style="height: 0; position: absolute;"></a>
+      <mat-list-item routerLink="/main/usuario/consulta" (click)="sidenav.close()">
+        <button mat-icon-button >
+            <mat-icon>account_circle</mat-icon>
         </button>
-        <span>Eu vim</span>
-    </mat-toolbar>
-    <mat-card id="content">
-        <router-outlet></router-outlet>
-    </mat-card>
+        <a mdLine>Usuários</a>
+      </mat-list-item>
+      <mat-list-item routerLink="/main/disciplina/consulta" (click)="sidenav.close()">
+        <button mat-icon-button >
+            <mat-icon>list</mat-icon>
+        </button>
+        <a mdLine>Disciplinas</a>
+      </mat-list-item>
+      <mat-list-item>
+          <button mat-icon-button >
+              <mat-icon>info</mat-icon>
+          </button>
+        <a mdLine routerLink="/main/relatorio"  (click)="sidenav.close()">Relatório</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon>
+      </button>
+      <span>Eu vim</span>
+  </mat-toolbar>
+  <mat-card id="content">
+    <router-outlet></router-outlet>
+  </mat-card>
 </mat-sidenav-container>
 ```
 
