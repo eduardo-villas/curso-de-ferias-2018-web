@@ -7,9 +7,11 @@ import { UsuarioRouting } from './usuario.routing';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatTableModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatIconModule, MatTooltipModule, MatOptionModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsuarioService } from './usuario.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthInterceptor } from '../interceptors/auth.interceptor';
+import { RequestErrorModule } from '../../request-error/request-error.module';
 
 @NgModule({
   imports: [
@@ -27,12 +29,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatOptionModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RequestErrorModule
   ],
   providers: [
     FormBuilder,
     UsuarioService,
-    HttpClient
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   declarations: [ConsultaComponent, FormularioComponent]
 })

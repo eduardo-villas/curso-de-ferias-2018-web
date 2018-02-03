@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import { UsuarioService } from '../usuario.service';
 import { MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-consulta',
@@ -24,7 +25,10 @@ export class ConsultaComponent implements OnInit {
   };
 
   public noResults$ = false;
-  constructor(private _usuarioService: UsuarioService, private _router: Router) { }
+  constructor(
+    private _usuarioService: UsuarioService, 
+    private _loadingService: LoadingService,
+    private _router: Router) { }
   
   ngOnInit() {
     this.atualizarListaDeUsuarios();
@@ -41,9 +45,13 @@ export class ConsultaComponent implements OnInit {
   }
 
   private atualizarListaDeUsuarios(){
+    this._loadingService.callNextStatus(true);
     this._usuarioService.listar().subscribe(suc => {
       this.noResults$ = suc.length == 0;
       this.dataSource = new MatTableDataSource(suc);
+      this._loadingService.callNextStatus(false);
+    }, err => {
+      this._loadingService.callNextStatus(false);
     });
   }
 

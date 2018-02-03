@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DisciplinaService } from '../../services/disciplina.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RelatorioService } from '../relatorio.service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-presenca',
@@ -14,9 +15,12 @@ export class PresencaComponent implements OnInit {
   public filtred: boolean;
   public relatorio=[];
   public form: FormGroup;
+  public disciplina: null;
   
-  constructor(private _disciplinaService: DisciplinaService,
+  constructor(
+    private _disciplinaService: DisciplinaService,
     private _relatorioService: RelatorioService,
+    private _loadingService: LoadingService,
     private _form: FormBuilder) {
     this.form = this._form.group({
       disciplina: [null, Validators.required],
@@ -36,10 +40,15 @@ export class PresencaComponent implements OnInit {
   }
 
   gerarRelatorio() {
+    this._loadingService.callNextStatus(true);
     this.filtred = true;
     this.relatorio = null;
+    this.disciplina = this.disciplinas.find((item) =>  item.id == this.form.value.disciplina);
     this._relatorioService.listarPresencaPorDisciplina(this.form.value).subscribe(suc=>{
       this.relatorio = suc;
+      this._loadingService.callNextStatus(false);
+    }, err => {
+      this._loadingService.callNextStatus(false);
     });
   }
 

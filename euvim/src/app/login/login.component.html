@@ -1,0 +1,34 @@
+<div fxFlexFill fxLayout="column" fxLayoutAlign="center"> 
+  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center" class="overflowScroll"> 
+      <div fxFlex="500px" fxFlex.xs="90">
+        <mat-card class="mat-elevation-z7">
+            <mat-card-header fxLayoutAlign="center">
+              <mat-card-title> <img src="./assets/img/logo.png"/> </mat-card-title>
+              <mat-card-subtitle fxLayoutAlign="center">Autenticação Necessária</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <form fxLayout="column" [formGroup]="form">
+                <mat-form-field>
+                    <input matInput formControlName="usuario" placeholder="Usuário" value="">
+                    <mat-error *ngIf="form.controls['usuario'].hasError('required')">
+                        Campo obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="!form.controls['usuario'].hasError('required') && form.controls['usuario'].hasError('email')">
+                        E-mail Inválido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="senha" placeholder="Senha" value="" type="password">
+                    <mat-error *ngIf="form.controls['senha'].hasError('required')">
+                        Campo obrigatório
+                    </mat-error>
+                </mat-form-field>
+                <br/>
+                <button mat-raised-button [disabled]="!form.valid" (click)="realizarLogin()" type="button" color="primary">Login</button>
+              </form>
+            </mat-card-content>
+          </mat-card>
+          <mat-progress-bar *ngIf="login" mode="indeterminate"> </mat-progress-bar>
+      </div> 
+  </div>
+</div>

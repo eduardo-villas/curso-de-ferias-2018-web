@@ -8,6 +8,8 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ProfessorComponent } from '../professor/professor.component';
 import { QrcodeComponent } from '../qrcode/qrcode.component';
+import { LoadingService } from '../../services/loading.service';
+import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-consulta',
@@ -20,7 +22,11 @@ export class ConsultaComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
 
   public noResults$ = false;
-  constructor(private _disciplinaService: DisciplinaService, private _router: Router, public dialog: MatDialog) { }
+  constructor(
+    private _disciplinaService: DisciplinaService,
+    private _loadingService: LoadingService, 
+    private _router: Router, 
+    public dialog: MatDialog) { }
   
   ngOnInit() {
     this.atualizarListaDeDisciplinas();
@@ -37,9 +43,13 @@ export class ConsultaComponent implements OnInit {
   }
 
   private atualizarListaDeDisciplinas(){
+    this._loadingService.callNextStatus(true);
     this._disciplinaService.listar().subscribe(suc => {
       this.noResults$ = suc.length == 0;
       this.dataSource = new MatTableDataSource(suc);
+      this._loadingService.callNextStatus(false);
+    }, err => {
+      this._loadingService.callNextStatus(false);
     });
   }
 

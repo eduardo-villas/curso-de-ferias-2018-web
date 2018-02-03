@@ -28,6 +28,7 @@
         </button>
         <span>Eu vim</span>
     </mat-toolbar>
+    <mat-progress-bar *ngIf="loading" color="warn" mode="indeterminate"></mat-progress-bar>
     <mat-card id="content">
         <router-outlet></router-outlet>
     </mat-card>
